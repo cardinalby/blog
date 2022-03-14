@@ -1,0 +1,24 @@
+{{ $series_name := .Page.Params.series | urlize }}
+{{ $page_name := .Page.Name }}
+
+{{ if $series_name }}
+
+<div class="series-parts-block">
+    <div class="series-parts-title">
+        <div class="series-label">SERIES</div>
+        <div class="series-name"><a href='{{ "series" | relURL}}/{{ $series_name }}'>{{ .Page.Params.series }}</a></div>
+    </div>
+
+{{ range $key, $taxonomy := .Site.Taxonomies.series }}
+    {{ if eq $key $series_name }}
+        {{ range $index, $element := $taxonomy.Pages.ByDate }}
+            <div class="series-part {{ if eq $element.Name $page_name }}current{{end}}">
+                <span class="circled-number">{{ add $index 1 }}</span>
+                <a href="{{ $element.Permalink }}">{{ $element.LinkTitle }}</a>
+            </div>
+        {{ end }}
+    {{ end }}
+{{ end }}
+
+</div>
+{{ end }}
