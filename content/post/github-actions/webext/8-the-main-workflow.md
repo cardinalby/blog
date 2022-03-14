@@ -9,12 +9,12 @@ tags:
 - devops
 - web-extension
 series: Releasing WebExtension using GitHub Actions
-title_image: "../../../../images/posts/github-actions/webext/title.png"
+title_image: "images/posts/github-actions/webext/title.png"
 ---
 
 We have prepared all the needed composite actions and workflows, and we are finally ready to create the main workflow that triggers the entire pipeline.
 
-![The main workflow](../../../../images/posts/github-actions/webext/the-main-workflow.png)
+![The main workflow](images/posts/github-actions/webext/the-main-workflow.png)
 
 _.github/workflows/publish-release-on-tag.yml_ :
 

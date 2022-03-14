@@ -9,7 +9,7 @@ tags:
 - web-extension
 - devops
 series: Releasing WebExtension using GitHub Actions
-title_image: "../../../../images/posts/github-actions/webext/title.png"
+title_image: "images/posts/github-actions/webext/title.png"
 ---
 
 In this part we will start with implementing composite actions, the base building blocks that are used in the workflows.
@@ -60,7 +60,7 @@ The next composite action we are going to create will be used in __*publish-on-c
 
 Both "Firefox" and "Chrome" workflows should handle these cases and download **zip** file from a release (if any) or build it on the spot. That is the duplicated logic that we extract to the composite action.
 
-![get-zip action](../../../../images/posts/github-actions/webext/get-zip-action.png)
+![get-zip action](images/posts/github-actions/webext/get-zip-action.png)
 
 _.github/workflows/actions/get-zip-asset/action.yml_ :
 

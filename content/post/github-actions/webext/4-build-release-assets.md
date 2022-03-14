@@ -11,13 +11,13 @@ tags:
 - firefox
 - chrome
 series: Releasing WebExtension using GitHub Actions
-title_image: "../../../../images/posts/github-actions/webext/title.png"
+title_image: "images/posts/github-actions/webext/title.png"
 ---
 # _build-assets-on-release_ workflow
 
 Let's create the first workflow that utilizes _**build-test-pack**_ action and builds release assets for offline distribution once a release has been published.
 
-![build-assets-on-release workflow](../../../../images/posts/github-actions/webext/build-assets-on-release.png)
+![build-assets-on-release workflow](images/posts/github-actions/webext/build-assets-on-release.png)
 
 _.github/workflows/build-assets-on-release.yml:_
 

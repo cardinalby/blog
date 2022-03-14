@@ -8,7 +8,7 @@ tags:
 - github-actions
 - testing
 series: Testing of GitHub Actions
-title_image: "../../../../images/posts/github-actions/testing/title.png"
+title_image: "images/posts/github-actions/testing/title.png"
 ---
 
 It's the last and the shortest part of the series. Testing the whole action as a [black box](https://en.wikipedia.org/wiki/Black-box_testing) can be done in 2 ways (as far as I can see).

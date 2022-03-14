@@ -10,7 +10,7 @@ tags:
 - devops
 - firefox
 series: Releasing WebExtension using GitHub Actions
-title_image: "../../../../images/posts/github-actions/webext/title.png"
+title_image: "images/posts/github-actions/webext/title.png"
 ---
 
 In this part we are going to create the workflow that will be responsible for publishing the extension

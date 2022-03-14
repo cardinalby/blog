@@ -14,7 +14,7 @@ I have always loved teas and drank them in exorbitant quantities, but I went dee
 
 ### [Open Tea Collage](https://cardinalby.github.io/tea-collage)
 
-[![Tea collage](../../images/projects/tea-collage/collage.png)](https://cardinalby.github.io/tea-collage)
+[![Tea collage](images/projects/tea-collage/collage.png)](https://cardinalby.github.io/tea-collage)
 
 One of the my favorite tea sort is shu and shen pu-erh; traditionally they are made in the form of pressed cakes. Very often they are wrapped in a paper wrapper with a beautiful art made for particular tea by order of a store or supplier. I always felt sorry to throw out these wrappers, so I came up with the idea to cut fragments out of them and present the fragments in the form of a collage.
 

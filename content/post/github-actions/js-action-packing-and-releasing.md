@@ -8,7 +8,7 @@ tags:
 - github-actions
 - js
 - ncc
-title_image: "../../../images/posts/github-actions/js-action-packing-and-releasing/title.png"
+title_image: "images/posts/github-actions/js-action-packing-and-releasing/title.png"
 ---
 
 ## 🔭 Overview

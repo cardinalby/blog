@@ -158,6 +158,12 @@ p {
     border-bottom-style: dashed;
 }
 
+/* list */
+
+h4.post-stub-title {
+    margin-right: 10px;
+}
+
 /* footer */
 
 .footer {

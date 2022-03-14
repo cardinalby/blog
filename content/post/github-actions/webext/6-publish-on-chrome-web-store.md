@@ -10,7 +10,7 @@ tags:
 - devops
 - chrome
 series: Releasing WebExtension using GitHub Actions
-title_image: "../../../../images/posts/github-actions/webext/title.png"
+title_image: "images/posts/github-actions/webext/title.png"
 ---
 
 In this part we are going to create the workflow that will be responsible for publishing the extension
@@ -55,7 +55,7 @@ use ["Dispatched workflow calling itself + wait timer"](../implementing-deferred
 
 Let's observe the workflow diagram and start with creating the workflow file:
 
-![build-assets-on-release workflow](../../../../images/posts/github-actions/webext/publish-on-chrome-webstore.png)
+![build-assets-on-release workflow](images/posts/github-actions/webext/publish-on-chrome-webstore.png)
 
 As you can see, the main idea is the following:
 1. We try to upload a new extension version.

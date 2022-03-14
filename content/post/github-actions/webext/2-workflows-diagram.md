@@ -9,7 +9,7 @@ tags:
 - web-extension
 - devops
 series: Releasing WebExtension using GitHub Actions
-title_image: "../../../../images/posts/github-actions/webext/title.png"
+title_image: "images/posts/github-actions/webext/title.png"
 ---
 
 # High level overview
@@ -21,7 +21,7 @@ In this part we will observe the high level architecture of the solution: the pr
 Let's take a look at the vertical Ghant diagram of the pipeline triggered by pushing a tag.
 
 
-![Vertical Ghant diagram](../../../../images/posts/github-actions/webext/workflows-ghant-vertical.png)
+![Vertical Ghant diagram](images/posts/github-actions/webext/workflows-ghant-vertical.png)
 
 - The main _**publish-release-on-tag**_ workflow is triggered when a user pushes a tag.
 - It triggers _**build-assets-on-release**_ implicitly by creating a release.
@@ -34,7 +34,7 @@ Important thing here is that all of these workflows can be triggered by user dir
 
 Apart from this, we are going to create one more workflow that will build and test an extension on pushes to branches and on Pull Requests creation:
 
-![Build and test workflow](../../../../images/posts/github-actions/webext/build-and-test-workflow.png)
+![Build and test workflow](images/posts/github-actions/webext/build-and-test-workflow.png)
 
 Separating the whole pipeline into workflows:
 
@@ -47,7 +47,7 @@ Separating the whole pipeline into workflows:
 In terms of code duplication, we can do better. Look at the steps marked in green and to the duplicated grey block of the "publishing" workflows. We are going to extract them to the [Composite Actions](https://docs.github.com/en/actions/creating-actions/creating-a-composite-action) that will be placed locally in the same repository:
 
 
-![Extracted composite actions](../../../../images/posts/github-actions/webext/composite-actions.png)
+![Extracted composite actions](images/posts/github-actions/webext/composite-actions.png)
 
 From the workflows's point of view they are usual actions that use a runner's filesystem and a workflow context. You can also notice that one composite action can use another composite action as its step.
 
