@@ -2,6 +2,10 @@
 title: "\"Tea collage\" creative project"
 description: "Own art project, digital addition to the collage of tea wrappings"
 date: 2021-07-10
+tags:
+- react
+- photoshop
+- art
 ---
 
 The project is a digital interactive addition to a collage of Chinese tea wrappers that I have been drinking for the past three years.

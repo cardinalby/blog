@@ -2,6 +2,9 @@
 title: "Memrise Audio Uploader"
 description: "Chrome extension which allows you to automate sounds of words and phrases pronunciation uploading to memrise.com course"
 date: 2019-02-12
+tags:
+- js
+- web-extension
 ---
 
 Memrise Audio Uploader is a Chrome extension which allows you to upload sounds of words and phrases pronunciation from [soundoftext.com](http://soundoftext.com) to [memrise.com](http://memrise.com) course.

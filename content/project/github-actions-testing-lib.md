@@ -2,6 +2,11 @@
 title: "GitHub Actions integration testing lib"
 description: "JavaScript API for GitHub Action execution and integration/functional testing"
 date: 2022-01-18
+tags:
+- js
+- docker
+- github-actions
+- testing
 ---
 
 ## Check out
