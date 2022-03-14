@@ -6,7 +6,7 @@ categories:
 - GitHub Actions
 tags:
 - github-actions
-title_image: "images/posts/github-actions/implementing-deferred-steps/title.png"
+image: "images/posts/github-actions/implementing-deferred-steps/title.png"
 ---
 
 ## ⚡️ GitHub Actions can do everything... but immediately

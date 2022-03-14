@@ -6,7 +6,7 @@ categories:
 - GitHub Actions
 tags:
 - github-actions
-title_image: "images/posts/github-actions/dry-reusing-code-in-github-actions/title.png"
+image: "images/posts/github-actions/dry-reusing-code-in-github-actions/title.png"
 ---
 
 In this post I want to make a quick overview of the approaches of reusing steps of your workflow to avoid duplication of the same steps across different workflows or jobs.

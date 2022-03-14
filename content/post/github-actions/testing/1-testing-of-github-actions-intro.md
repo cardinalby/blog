@@ -8,7 +8,7 @@ tags:
 categories:
 - GitHub Actions
 series: Testing of GitHub Actions
-title_image: "images/posts/github-actions/testing/title.png"
+image: "images/posts/github-actions/testing/title.png"
 ---
 
 # Introduction

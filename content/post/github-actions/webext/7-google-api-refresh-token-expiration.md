@@ -9,7 +9,7 @@ tags:
 - devops
 - google
 series: Releasing WebExtension using GitHub Actions
-title_image: "images/posts/github-actions/webext/title.png"
+image: "images/posts/github-actions/webext/title.png"
 ---
 
 In this part we will finish setting up workflows related to publishing the extension on Google Web Store and create the workflow that isn't shown on [the workflow diagram](./2-workflows-diagram.md) because it stays aside and isn't included to the main pipeline.

@@ -11,7 +11,7 @@ tags:
 - firefox
 - chrome
 series: Releasing WebExtension using GitHub Actions
-title_image: "images/posts/github-actions/webext/title.png"
+image: "images/posts/github-actions/webext/title.png"
 ---
 # _build-assets-on-release_ workflow
 

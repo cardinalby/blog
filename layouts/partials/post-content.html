@@ -1,0 +1,11 @@
+<div class="post-content clearfix" itemprop="articleBody">
+    {{ with .Params.Image }}
+        <img class="post-featured-image" src="{{ . }}">
+    {{ end }}
+
+    {{ partial "series-posts.html" . }}
+
+    {{ .Content }}
+
+    {{ partial "series-posts.html" . }}
+</div>

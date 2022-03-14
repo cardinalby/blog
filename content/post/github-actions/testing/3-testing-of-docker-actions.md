@@ -9,7 +9,7 @@ tags:
 - docker
 - testing
 series: Testing of GitHub Actions
-title_image: "images/posts/github-actions/testing/title.png"
+image: "images/posts/github-actions/testing/title.png"
 ---
 
 In this part I'm going to tell about approaches that can be used to test a Docker container Action.

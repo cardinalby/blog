@@ -9,7 +9,7 @@ tags:
 - web-extension
 - devops
 series: Releasing WebExtension using GitHub Actions
-title_image: "images/posts/github-actions/webext/title.png"
+image: "images/posts/github-actions/webext/title.png"
 ---
 
 In this part we will start with implementing composite actions, the base building blocks that are used in the workflows.
