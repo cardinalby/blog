@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Projects on Tech grumbling</title><link>https://cardinalby.github.io/blog/project/</link><description>Recent content in Projects on Tech grumbling</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>cardinalby</copyright><lastBuildDate>Tue, 18 Jan 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://cardinalby.github.io/blog/project/index.xml" rel="self" type="application/rss+xml"/><item><title>GitHub Actions integration testing lib</title><link>https://cardinalby.github.io/blog/project/github-actions-testing-lib/</link><pubDate>Tue, 18 Jan 2022 00:00:00 +0000</pubDate><guid>https://cardinalby.github.io/blog/project/github-actions-testing-lib/</guid><description>Check out https://github.com/cardinalby/github-action-ts-run-api
+Purpose 🔶 Executing your GitHub action locally (or at any other environment).
+🔶 Writing integration and functional tests, run them locally and at CI.
+🔶 Having a short feedback loop without pushing and checking it behaviour at real GitHub runners every time.
+Features ✅ Supports executing JavaScript and Docker actions.
+✅ Tested under Windows, Linux and macOS locally and on GitHub hosted runners.
+✅ Works well with Docker Desktop under Windows and macOS (for Docker actions).</description></item><item><title>"Tea collage" creative project</title><link>https://cardinalby.github.io/blog/project/tea-collage/</link><pubDate>Sat, 10 Jul 2021 00:00:00 +0000</pubDate><guid>https://cardinalby.github.io/blog/project/tea-collage/</guid><description>The project is a digital interactive addition to a collage of Chinese tea wrappers that I have been drinking for the past three years.
+I have always loved teas and drank them in exorbitant quantities, but I went deeper into the topic of Chinese teas since 2015.
+Open Tea Collage
+One of the my favorite tea sort is shu and shen pu-erh; traditionally they are made in the form of pressed cakes.</description></item><item><title>Memrise Audio Uploader</title><link>https://cardinalby.github.io/blog/project/memrise-audio-uploader/</link><pubDate>Tue, 12 Feb 2019 00:00:00 +0000</pubDate><guid>https://cardinalby.github.io/blog/project/memrise-audio-uploader/</guid><description>Memrise Audio Uploader is a Chrome extension which allows you to upload sounds of words and phrases pronunciation from soundoftext.com to memrise.com course.
+Check out the source code https://github.com/cardinalby/memrise-audio-uploader
+Install from the stores Chrome Web Store
+Firefox Add-ons
+To download the offline versions please go to the Releases page.
+Screenshots</description></item></channel></rss>
