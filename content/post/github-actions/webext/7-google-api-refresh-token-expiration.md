@@ -37,6 +37,8 @@ jobs:
           refreshToken: ${{ secrets.G_REFRESH_TOKEN }}
 ```
 
+Here I assume that you have already obtained and have added values required for Google API access to secrets (as it described at the previous post).
+
 Once a month GitHub will run our workflow and perform the single step: fetching access token using the credentials that we have already added to _secrets_ (see the previous post). It will prevent refresh token from invalidation.
 
 _**One note here:**_ GitHub will suspend the scheduled trigger for GitHub Action workflows if there is no commit in the repository for the past 60 days. The cron based triggers won't run unless a new commit is made. Probably, you can use the same trick (committing to the repo once a month by schedule) to circumvent this limitation.

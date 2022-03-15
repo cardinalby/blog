@@ -12,8 +12,6 @@ series: Testing of GitHub Actions
 image: "images/posts/github-actions/testing/title.png"
 ---
 
-![Title](images/posts/github-actions/testing/title.png)
-
 Let's talk about JavaScript GitHub Actions and approaches that we can apply on the different levels of testing.
 
 # Unit tests
