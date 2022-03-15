@@ -35,8 +35,8 @@ From this series of posts you can learn:
 
 ## More about used techniques
 
-* [Reusing code in GitHub Actions](https://dev.to/cardinalby/github-actions-make-it-reusable-3ho7)
-* [GitHub Actions: implementing deferred steps](https://dev.to/cardinalby/scheduling-delayed-github-action-12a6)
+* [Reusing code in GitHub Actions](../dry-reusing-code-in-github-actions.md)
+* [GitHub Actions: implementing deferred steps](../implementing-deferred-steps.md)
 
 ## Actions used in the workflows
 

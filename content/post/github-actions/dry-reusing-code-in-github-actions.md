@@ -61,4 +61,4 @@ From your "main" workflow it looks as a usual action (a single step), but intern
 
 Any comments, critics and sharing your own experience would be appreciated!
 
-If you are interested in developing own Actions, I also recommend you reading "[GitHub Actions Testing](https://dev.to/cardinalby/github-actions-testing-h3h)" post.
+If you are interested in developing own Actions, I also recommend you reading "[GitHub Actions Testing](./testing/1-testing-of-github-actions-intro.md)" series.

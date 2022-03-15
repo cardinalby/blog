@@ -13,7 +13,7 @@ image: "images/posts/github-actions/implementing-deferred-steps/title.png"
 
 Sometimes you can’t finish your CI/CD job in a single run: you have to wait for some event or until an external long-running process finishes. To do that, we need a possibility to _delay/postpone/defer_ some steps and repeat them (probably multiple times until they succeed).
 
-_For example, I faced the issue with WebExtension [publishing](https://dev.to/cardinalby/webextension-deployment-and-publishing-using-github-actions-522o). After calling the Web Store API I have to wait up to week or two until my extension gets reviewed and only then I will be able to download published and packed file and add it to a GitHub release._
+_For example, I faced the issue with WebExtension [publishing](./webext/1-introduction.md). After calling the Web Store API I have to wait up to week or two until my extension gets reviewed and only then I will be able to download published and packed file and add it to a GitHub release._
 
 In this post I want to review existing possibilities for delaying particular steps of your workflow in case they can't be completed immediately.
 
@@ -348,4 +348,4 @@ If you want to modify your GitHub release (created during the _main workflow_ ru
 
 Any comments, critics and sharing your own experience would be appreciated!
 
-If you are interested in developing own Actions, I also recommend you reading "[GitHub Actions Testing](https://dev.to/cardinalby/github-actions-testing-h3h)" post.
+If you are interested in developing own Actions, I also recommend you reading "[GitHub Actions Testing](./testing/1-testing-of-github-actions-intro.md)" series.

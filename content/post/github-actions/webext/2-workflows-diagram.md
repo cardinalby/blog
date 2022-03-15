@@ -39,7 +39,7 @@ Apart from this, we are going to create one more workflow that will build and te
 Separating the whole pipeline into workflows:
 
 - Prevents us from creating a monster workflow file.
-- [Avoids code duplication](https://dev.to/cardinalby/github-actions-make-it-reusable-3ho7)
+- [Avoids code duplication](../dry-reusing-code-in-github-actions.md)
 - Allows the separated workflows to be triggered, cancelled or repeated independently and executed in parallel.
 
 ## Composite actions
