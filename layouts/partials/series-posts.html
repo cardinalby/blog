@@ -8,17 +8,24 @@
         <div class="series-label">SERIES</div>
         <div class="series-name"><a href='{{ "series" | relURL}}/{{ $series_name }}'>{{ .Page.Params.series }}</a></div>
     </div>
-
-{{ range $key, $taxonomy := .Site.Taxonomies.series }}
-    {{ if eq $key $series_name }}
-        {{ range $index, $element := $taxonomy.Pages.ByDate }}
-            <div class="series-part {{ if eq $element.Name $page_name }}current{{end}}">
-                <span class="circled-number">{{ add $index 1 }}</span>
-                <a href="{{ $element.Permalink }}">{{ $element.LinkTitle }}</a>
-            </div>
+    {{ $partNumber := 0 }}
+    {{ $seriesLength := 0 }}
+    {{ range $key, $taxonomy := .Site.Taxonomies.series }}
+        {{ if eq $key $series_name }}
+            {{ $seriesLength = len $taxonomy.Pages.ByDate}}
+            {{ range $index, $element := $taxonomy.Pages.ByDate }}
+                {{ $isCurrent := eq $element.Name $page_name }}
+                {{ if $isCurrent }}{{ $partNumber = add $index 1}}{{ end }}
+                <div class="series-part {{ if $isCurrent }}current{{end}}">
+                    <span class="circled-number">{{ add $index 1 }}</span>
+                    <a href="{{ $element.Permalink }}">{{ $element.LinkTitle }}</a>
+                </div>
+            {{ end }}
         {{ end }}
     {{ end }}
-{{ end }}
-
 </div>
+
+<h3 class="series-part-block-print-only">
+    Post <b>{{ $partNumber }}</b> of <b>{{ $seriesLength }}</b> in "{{ .Page.Params.series }}" series
+</h3>
 {{ end }}
