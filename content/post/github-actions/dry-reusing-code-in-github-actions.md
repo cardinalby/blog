@@ -13,17 +13,17 @@ In this post I want to make a quick overview of the approaches of reusing steps 
 
 ## 🔸 Reusing workflows
 
-The obvious option is using the ["Reusable workflows" feature](https://docs.github.com/en/actions/using-workflows/reusing-workflows) that allows you to call extract some steps into a separate "reusable" workflow and call this workflow as a job in other workflows.
+The obvious option is using the ["Reusable workflows" feature](https://docs.github.com/en/actions/using-workflows/reusing-workflows) that allows you to extract some steps into a separate "reusable" workflow and call this workflow as a job in other workflows.
 
 ### 🥡 Takeaways:
 
 - Reusable workflows can't call other reusable workflows.
-- The strategy property is not supported in any job that calls a reusable workflow.
+- The `strategy` property is not supported in any job that calls a reusable workflow.
 - Env variables and secrets are not inherited.
 - It's not convenient if you need to extract and reuse several steps inside one job.
-- Since it runs as a separate job, you have to use [build artifacts](https://docs.github.com/en/actions/advanced-guides/storing-workflow-data-as-artifacts) to share files between reusable workflow and your main workflow.
-- You can call reusable workflow in synchronous or asynchronous manner (managing it by jobs ordering using `needs` keys).
-- A reusable workflow can define outputs that extract outputs/outcomes from performed steps. They can easily used to pass data to the "main" workflow.
+- Since it runs as a separate job, you have to use [build artifacts](https://docs.github.com/en/actions/advanced-guides/storing-workflow-data-as-artifacts) to share files between a reusable workflow and your main workflow.
+- You can call a reusable workflow in synchronous or asynchronous manner (managing it by jobs ordering using `needs` keys).
+- A reusable workflow can define outputs that extract outputs/outcomes from executed steps. They can be easily used to pass data to the "main" workflow.
 
 ## 🔸 Dispatched workflows
 
@@ -35,9 +35,9 @@ There are [actions](https://github.com/marketplace?type=actions&query=dispatch+w
 
 ### 🥡 Takeaways
 
-- You can have multiple nested calls, triggering a workflow  from another triggered workflow. If done careless, can lead to an infinite loop.
+- You can have multiple nested calls, triggering a workflow from another triggered workflow. If done careless, can lead to an infinite loop.
 - You need a special token with "workflows" permission; your usual `secrets.GITHUB_TOKEN` doesn't allow you to dispatch a workflow.
-- You can call run multiple dispatched workflows inside one job.
+- You can trigger multiple dispatched workflows inside one job.
 - There is no easy way to get some data back from dispatched workflows to the main one.
 - Works better in "fire and forget" scenario. Waiting for a finish of dispatched workflow has some limitations.
 - You can observe dispatched workflows runs and cancel them manually.
@@ -46,7 +46,7 @@ There are [actions](https://github.com/marketplace?type=actions&query=dispatch+w
 
 In this approach we extract steps to a distinct [composite action](https://docs.github.com/en/actions/creating-actions/creating-a-composite-action), that can be located in the same or separate repository.
 
-From your "main" workflow it looks as a usual action (a single step), but internally it comprises of multiple steps each of which can call own actions.
+From your "main" workflow it looks like a usual action (a single step), but internally it consists of multiple steps each of which can call own actions.
 
 ### 🥡 Takeaways:
 
