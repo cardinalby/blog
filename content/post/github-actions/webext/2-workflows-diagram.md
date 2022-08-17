@@ -20,17 +20,16 @@ In this part we will observe the high level architecture of the solution: the pr
 
 Let's take a look at the vertical Ghant diagram of the pipeline triggered by pushing a tag.
 
-
 ![Vertical Ghant diagram](images/posts/github-actions/webext/workflows-ghant-vertical.png)
 
 - The main _**publish-release-on-tag**_ workflow is triggered when a user pushes a tag.
 - It triggers _**build-assets-on-release**_ implicitly by creating a release.
-- The main workflow also explicitly triggers (emitting `workflow_dispatch`) event 2 other workflows responsible for publishing an extension on different stores.
+- The main workflow also explicitly triggers (emitting `workflow_dispatch`) event 3 other workflows responsible for publishing an extension on different stores.
 
-Important thing here is that all of these workflows can be triggered by user directly, without triggering the main workflow. Because of that I have added additional checks to them:
+Important thing here is that all of these workflows can be triggered by user directly, without triggering the main workflow:
 
 - _**build-assets-on-release**_ is triggered when a user publishes a new release (it can not have a _zip_ asset).
-- _**publish-on-chrome-webstore**_ and _**publish-on-firefox-addons**_ can be triggered manually using `workflow_dispatch` event on any branch or tag that don't have a release.
+- _**publish-on-chrome-webstore**_, _**publish-on-firefox-add-ons**_ and _**publish-on-edge-add-ons**_ can be triggered manually using `workflow_dispatch` event on any branch or tag that don't have a release.
 
 Apart from this, we are going to create one more workflow that will build and test an extension on pushes to branches and on Pull Requests creation:
 
@@ -45,7 +44,6 @@ Separating the whole pipeline into workflows:
 ## Composite actions
 
 In terms of code duplication, we can do better. Look at the steps marked in green and to the duplicated grey block of the "publishing" workflows. We are going to extract them to the [Composite Actions](https://docs.github.com/en/actions/creating-actions/creating-a-composite-action) that will be placed locally in the same repository:
-
 
 ![Extracted composite actions](images/posts/github-actions/webext/composite-actions.png)
 

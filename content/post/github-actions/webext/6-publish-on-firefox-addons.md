@@ -1,6 +1,6 @@
 ---
 title: "Publish on Firefox Add-ons"
-date: 2022-02-08
+date: 2022-02-09
 draft: false
 categories:
 - GitHub Actions
@@ -30,12 +30,12 @@ Next, follow the [official documentation](https://addons-server.readthedocs.io/e
 ## _publish-on-firefox-add-ons_ workflow
 
 The workflow will have the only trigger: _workflow_dispatch_ event. It can be dispatched:
-1. Manually specifying any commit or tag as workflow _ref_.
+1. Manually specifying any branch or tag as workflow _ref_.
 2. By _**publish-release-on-tag**_ workflow after it has prepared a release with **zip** asset.
 
 We will utilize already created _*[get-zip-asset](./3-composite-actions.md#_get-zip-asset_-action)*_ composite action to obtain packed **zip** that is needed for deploying the extension.
 
-_.github/workflows/publish-on-firefox-addons.yml_ :
+_.github/workflows/publish-on-firefox-add-ons.yml_ :
 
 ```yaml
 name: publish-on-firefox-add-ons
@@ -76,7 +76,7 @@ jobs:
 
 1. [As usual](./3-composite-actions.md#not-a-composite-action), at the beginning of each workflow we check out the repo and export env variables from _constants.env_ file.
 2. After calling __*get-zip-asset*__ composite action we expect to have **zip** file with packed and built extension at `env.ZIP_FILE_PATH` path. 
-3. We pass its path along with other required inputs to _[webext-buildtools-firefox-addons-action](https://github.com/marketplace/actions/webext-buildtools-firefox-addons-action)_ action to publish the extension. We use `continue-on-error: true` flag to prevent the step from failing immediately in case of error and validate the result at the following step according to our preferences.
+3. We pass its path along with other required inputs to _[webext-buildtools-firefox-addons-action](https://github.com/cardinalby/webext-buildtools-firefox-addons-action)_ action to publish the extension. We use `continue-on-error: true` flag to prevent the step from failing immediately in case of error and validate the result at the following step according to our preferences.
 4. Examining _addonsDeploy_ step outputs we can find out the reason of its failure. If it failed because the version we try to publish is already published, we don't consider it as error.
 
 ### Timeout notes
@@ -85,3 +85,9 @@ Also, the publishing action can sometimes fail with `timeoutError == 'true'` out
 - Specify longer timeout with `timeoutMs` input of _webext-buildtools-firefox-addons-action_ action. Default timeout is _600000_ ms (10 min).
 - Do not fail the job in the last step if `steps.addonsDeploy.outputs.timeoutError == 'true'`.
 - Just rerun the workflow after a while in the case of timeout. If the extension has been processed after the first run, the workflow will pass (with `steps.addonsDeploy.outputs.sameVersionAlreadyUploadedError != 'true'`).
+
+### Not covered: sources uploading
+
+Tthe topic I didn't touch in the article for the sake of simplicity is providing sources of the extension for Firefox Add-ons reviewers. In my example sources and packed extension are the same. But any little bit complicated extension will probably have build process including compiling TypeScript, packing css, minifying JS files, etc. In this case Firefox Add-ons requires you to provide source codes separately. 
+
+Using _[webext-buildtools-firefox-addons-action](https://github.com/cardinalby/webext-buildtools-firefox-addons-action)_ you can do it by specifying `sourcesZipFilePath` input pointing to the zip file containing sources. To produce this file you need to add an extra step in the workflow, though.

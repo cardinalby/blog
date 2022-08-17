@@ -31,7 +31,7 @@ Another possibility that GitHub gives us is [workflow_dispatch](https://docs.git
 
 There are [actions](https://github.com/marketplace?type=actions&query=dispatch+workflow+) available on the Marketplace which allow you to trigger a "dispatched" workflow as a step of "main" workflow.
 
-[Some](https://github.com/marketplace/actions/workflow-dispatch-and-wait) of them also allow doing it in a synchronous manner (wait until dispatched workflow is finished). It is worth to say that this feature is implemented by polling statuses of repo workflows which is [not](https://github.com/aurelien-baudet/workflow-dispatch/blob/master/src/workflow-handler.ts#L122) very reliable, especially in a concurrent environment. Also, it is bounded by GitHub API usage limits and therefore has a delay in finding out a status of dispatched workflow.
+[Some](https://github.com/aurelien-baudet/workflow-dispatch) of them also allow doing it in a synchronous manner (wait until dispatched workflow is finished). It is worth to say that this feature is implemented by polling statuses of repo workflows which is [not](https://github.com/aurelien-baudet/workflow-dispatch/blob/master/src/workflow-handler.ts#L122) very reliable, especially in a concurrent environment. Also, it is bounded by GitHub API usage limits and therefore has a delay in finding out a status of dispatched workflow.
 
 ### 🥡 Takeaways
 

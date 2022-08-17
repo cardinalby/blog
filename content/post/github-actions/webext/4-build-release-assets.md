@@ -88,7 +88,7 @@ The first job will find **zip** asset in the release or build  it if not found:
 
 - At the beginning of each workflow we check out the repo and export env variables from _constants.env_ file.
 - `getZipAssetId` step uses `github.event.release.assets_url` to get the release assets list
-  and find **zip** asset id. It may not exist if the workflow was triggered by a release created by a user directly. Used [`js-eval-action`](https://github.com/marketplace/actions/js-eval-action) is an action for executing general-purpose JavaScript code.
+  and find **zip** asset id. It may not exist if the workflow was triggered by a release created by a user directly. Used [`js-eval-action`](https://github.com/cardinalby/js-eval-action) is an action for executing general-purpose JavaScript code.
 - If it hasn't been found, we call _**build-test-pack**_ composite action to build **zip** asset from the scratch, save it to `env.ZIP_FILE_PATH` and then attach to the release.
 - `zipAssetId` job output will have a value from either `getZipAssetId` step (if **zip** asset was found in the release) or or `uploadZipAsset` step if it has been built and uploaded in the job.
 
@@ -147,7 +147,7 @@ For this step you need to have a `pem` private key that is used for offline sign
 ```
 
 - The job uses `zipAssetId` output from `ensure-zip` job to download the asset.
-- [`webext-buildtools-chrome-crx-action`](https://github.com/marketplace/actions/webext-buildtools-chrome-crx-action) action uses the private key from _secrets_ to build and sign  **crx** file for offline distribution. This action doesn't interact with Chrome Web Store.
+- [`webext-buildtools-chrome-crx-action`](https://github.com/cardinalby/webext-buildtools-chrome-crx-action) action uses the private key from _secrets_ to build and sign  **crx** file for offline distribution. This action doesn't interact with Chrome Web Store.
 
 ## _build-signed-xpi-asset_ job
 
@@ -215,7 +215,7 @@ Finally, add the following job to the workflow:
           asset_content_type: application/x-xpinstall
 ```
 
-- [`webext-buildtools-firefox-sign-xpi-action`](https://github.com/marketplace/actions/webext-buildtools-firefox-sign-xpi-action) action uses the keys from _secrets_ to build and sign
+- [`webext-buildtools-firefox-sign-xpi-action`](https://github.com/cardinalby/webext-buildtools-firefox-sign-xpi-action) action uses the keys from _secrets_ to build and sign
   **xpi** file for offline distribution. Practice shows that this step can take quite a long time to complete. `timeoutMs` input allows you to configure the timeout.
 - `continue-on-error: true` key of `ffSignXpi` step is used to prevent the step to fail immediately in case of error and examine an error at the next step.
 - At the next step we examine an error (if any) and fail the job, except the case where the error happened because this version was already signed. It's a peculiarity of Firefox Add-ons signing process: it doesn't allow to sign the same version twice. So we just suppress the error and don't

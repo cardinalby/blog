@@ -1,6 +1,6 @@
 ---
 title: "The main workflow"
-date: 2022-02-11
+date: 2022-02-12
 draft: false
 categories:
 - GitHub Actions
@@ -94,19 +94,27 @@ jobs:
           workflow: publish-on-firefox-add-ons
           token: ${{ secrets.WORKFLOWS_TOKEN }}
           wait-for-completion: false
+
+      - name: Publish on Edge Add-ons
+        uses: benc-uk/workflow-dispatch@v1
+        if: "!contains(github.event.head_commit.message, '[skip edge]')"
+        with:
+           workflow: publish-on-edge-add-ons
+           token: ${{ secrets.WORKFLOWS_TOKEN }}
+           wait-for-completion: false
 ```
 
 1. The workflow can be triggered by pushing _*.*.*_ tag or by _workflow_dispatch_ event.
 2. To perform the work we need a tag to create a release for, that's why we add `if: github.ref_type == 'tag'` condition for the job to prevent running on branches.
-3. We use [git-get-release-action](https://github.com/marketplace/actions/git-get-release-action) to find a release for the tag. `continue-on-error: true` prevents the job from failing if release not found.
+3. We use [git-get-release-action](https://github.com/cardinalby/git-get-release-action) to find a release for the tag. `continue-on-error: true` prevents the job from failing if release not found.
 4. If a release not found, we:
     - Call _**build-test-pack**_ composite action to build **zip** file.
-    - Call [release-action](https://github.com/marketplace/actions/create-release) to create a draft release. This doesn't trigger `on: release` event.
+    - Call [release-action](https://github.com/ncipollo/release-action) to create a draft release. This doesn't trigger `on: release` event.
     - Call [upload-release-asset](https://github.com/actions/upload-release-asset) to upload **zip** asset to the release (to be used by _**publish-on-chrome-web-store**_ and _**publish-on-firefox-add-ons**_ workflows later).
-    - Call [eregon/publish-release](https://github.com/marketplace/actions/publish-release) to publish the draft release. This triggers `on: release` event and [build-assets-on-release](./4-build-release-assets.md) workflow.
-5. We use [benc-uk/workflow-dispatch](https://github.com/marketplace/actions/workflow-dispatch) action to asynchronously dispatch:
-    - [publish-on-chrome-web-store](./6-publish-on-chrome-web-store.md) workflow (if the commit message doesn't contain `[skip chrome]` text).
-    - [publish-on-firefox-add-ons](./5-publish-on-firefox-addons.md) workflow (if the commit message doesn't contain `[skip firefox]` text).
+    - Call [eregon/publish-release](https://github.com/eregon/publish-release) to publish the draft release. This triggers `on: release` event and [build-assets-on-release](./4-build-release-assets.md) workflow.
+5. We use [benc-uk/workflow-dispatch](https://github.com/benc-uk/workflow-dispatch) action to asynchronously dispatch:
+    - [publish-on-chrome-web-store](./7-publish-on-chrome-web-store.md) workflow (if the commit message doesn't contain `[skip chrome]` text).
+    - [publish-on-firefox-add-ons](./5-publish-on-firefox-add-ons.md) workflow (if the commit message doesn't contain `[skip firefox]` text).
 
 ## 👏 Thank you for reading
 

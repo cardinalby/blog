@@ -1,6 +1,6 @@
 ---
 title: "Publish on Chrome Web Store"
-date: 2022-02-09
+date: 2022-02-10
 draft: false
 categories:
 - GitHub Actions
@@ -99,7 +99,7 @@ Defined _workflow_dispatch_ event has 3 inputs that can be specified at the time
     environment: ${{ github.event.inputs.environment }}
     outputs:
       result: ${{ steps.webStorePublish.outcome }}
-      releaseUploadUrl: ${{ steps.getZipAsset.releaseUploadUrl }}
+      releaseUploadUrl: ${{ steps.getZipAsset.outputs.releaseUploadUrl }}
     steps:
       # Validate the inputs and increase the attemptNumber if less than maxAttempts
       - name: Get the next attempt number
@@ -183,12 +183,12 @@ Defined _workflow_dispatch_ event has 3 inputs that can be specified at the time
 ```
 
 1. `environment: ${{ github.event.inputs.environment }}` sets the environment for the job providing a required delay (via "wait timer" of the environment).
-2. We use [js-eval-action](https://github.com/marketplace/actions/js-eval-action) as a generic JS code interpreter to validate the inputs and calculated the incremented _attemptNumber_. It is accessible as _result_ output of the step.
+2. We use [js-eval-action](https://github.com/cardinalby/js-eval-action) as a generic JS code interpreter to validate the inputs and calculated the incremented _attemptNumber_. It is accessible as _result_ output of the step.
 3. [As usual](./3-composite-actions.md#not-a-composite-action), at the beginning of each workflow we check out the repo and export env variables from _constants.env_ file.
 4. After calling __*get-zip-asset*__ composite action we expect to have **zip** file with packed and built extension at `env.ZIP_FILE_PATH` path.
-5. We call [google-api-fetch-token-action](https://github.com/marketplace/actions/google-api-fetch-token-action) to retrieve Google API access token that is needed for "upload" and "publish" steps.
-6. We use [webext-buildtools-chrome-webstore-upload-action](https://github.com/marketplace/actions/webext-buildtools-chrome-webstore-upload-action) action to upload a new version to Webstore. `continue-on-error: true` flag allows us not to fail immediately, but perform the next "dispatching" step and examine the error after it in a separate step (checking the action's [outputs](https://github.com/marketplace/actions/webext-buildtools-chrome-webstore-upload-action#outputs)).
-7. We use [aurelien-baudet/workflow-dispatch](https://github.com/marketplace/actions/workflow-dispatch-and-wait) action to dispatch the workflow in case of `IN_REVIEW` error:
+5. We call [google-api-fetch-token-action](https://github.com/cardinalby/google-api-fetch-token-action) to retrieve Google API access token that is needed for "upload" and "publish" steps.
+6. We use [webext-buildtools-chrome-webstore-upload-action](https://github.com/cardinalby/webext-buildtools-chrome-webstore-upload-action) action to upload a new version to Webstore. `continue-on-error: true` flag allows us not to fail immediately, but perform the next "dispatching" step and examine the error after it in a separate step (checking the action's [outputs](https://github.com/cardinalby/webext-buildtools-chrome-webstore-upload-action#outputs)).
+7. We use [aurelien-baudet/workflow-dispatch](https://github.com/aurelien-baudet/workflow-dispatch) action to dispatch the workflow in case of `IN_REVIEW` error:
     * `workflow: ${{ github.workflow }}` points to the current workflow file
     * `token: ${{ secrets.WORKFLOWS_TOKEN }}` makes use of the personal access token we created at the preparation step
     * `inputs` is JSON containing values of inputs for _workflow_dispatch_ event:
@@ -196,7 +196,7 @@ Defined _workflow_dispatch_ event has 3 inputs that can be specified at the time
         - `maxAttempts` is the workflow input value passed without changes.
         - `environment` is the name of the environment that will be used to delay the execution.
 8. _"Abort on unrecoverable upload error"_ step complements the "upload" step validating errors and fails the job if we can't proceed with publishing because the new version was not uploaded. The case when the same version has been already uploaded (`sameVersionAlreadyUploadedError` output indicates that) is the exception - we still can publish it.
-9. Finally, we call [webext-buildtools-chrome-webstore-publish-action](https://github.com/marketplace/actions/webext-buildtools-chrome-webstore-publish-action) action to publish the extension.
+9. Finally, we call [webext-buildtools-chrome-webstore-publish-action](https://github.com/cardinalby/webext-buildtools-chrome-webstore-publish-action) action to publish the extension.
 
 Finally, we are done. Keep in mind that in the sake of simplicity I omit some details and description of optional inputs of the used actions. There are a lot of things to tune up. Please, read the documentation for corresponding actions to learn more.
 

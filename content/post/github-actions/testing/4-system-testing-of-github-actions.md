@@ -21,7 +21,7 @@ Use the same [tool](https://github.com/cardinalby/github-action-ts-run-api) as f
 
 This approach implies that you should create special testing workflows that can be naturally run on GitHub Actions runner or can be run locally using [Act](https://github.com/nektos/act).
 
-> If you need to debug an action on actual GitHub hosted runner, take a look at [debugging-with-tmate](https://github.com/marketplace/actions/debugging-with-tmate) action on the Marketplace.
+> If you need to debug an action on actual GitHub hosted runner, take a look at [debugging-with-tmate](https://github.com/mxschmitt/action-tmate) action on the Marketplace.
 
 Testing workflows can be located in the action repository and refer to the action using the local `./` path. It's especially convenient because each branch in the action repo will be tested against the version of the action stored in this branch.
 

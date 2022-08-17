@@ -54,7 +54,7 @@ runs:
 
 # _get-zip-asset_ action
 
-The next composite action we are going to create will be used in __*publish-on-chrome-webstore*__ and __*publish-on-firefox-addons*__ workflows. These workflows can be triggered:
+The next composite action we are going to create will be used in __*publish-on-chrome-webstore*__ and __*publish-on-firefox-add-ons*__ workflows. These workflows can be triggered:
 - Manually on any tag or branch (a release may not exist)
 - Or by dispatching from __*publish-release-on-tag*__ workflow. In this case a release with packed zip file exists.
 
@@ -125,8 +125,8 @@ runs:
 
 - _githubToken_ input is needed because composite actions don't have access to secrets, and we have to pass them manually via inputs.
 - _releaseUploadUrl_ output is filled if release exists. It can be used in a calling workflow to upload release assets.
-- Searching for a release makes sense only if a workflow was triggered with `tag` _ref_. Passing `doNotFailIfNotFound: true` to [cardinalby/git-get-release-action](https://github.com/marketplace/actions/git-get-release-action) prevents the step from failing the entire job if a release not found.
-- I use [js-eval-action](https://github.com/marketplace/actions/js-eval-action) (that is generic JS interpreter action) to find **zip** asset in the release.
+- Searching for a release makes sense only if a workflow was triggered with `tag` _ref_. Passing `doNotFailIfNotFound: true` to [cardinalby/git-get-release-action](https://github.com/cardinalby/git-get-release-action) prevents the step from failing the entire job if a release not found.
+- I use [js-eval-action](https://github.com/cardinalby/js-eval-action) (that is generic JS interpreter action) to find **zip** asset in the release.
 - We build **zip** (calling the composite action we have just created) only if `steps.downloadZipAsset.outcome != 'success'`, i.e. in the case if ref is not `tag`, or release not found, or the release doesn't have **zip** asset.
 
 # Not a composite action
@@ -144,6 +144,6 @@ We have one more piece of code that will be duplicated around all jobs and workf
 
 This code:
 1. Checks out the repo.
-2. Exports env variables from _./.github/workflows/constants.env_ file (you can find its contents in the first post) to the job environment using [export-env-action](https://github.com/marketplace/actions/export-env-action).
+2. Exports env variables from _./.github/workflows/constants.env_ file (you can find its contents in the first post) to the job environment using [export-env-action](https://github.com/cardinalby/export-env-action).
 
 Unfortunately, we can't extract checkout step to a local composite action because to call local composite actions you need first checkout the repo with the composite actions 🙂. Thus, I decided that extracting the single _export-env-action_ step doesn't make a big sense and left it as it is. In the following parts I will not draw attention to these steps at the beginning of each workflow.

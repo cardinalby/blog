@@ -52,7 +52,7 @@ using GitHub API.
 At the end of the workflow run it will trigger itself in case it hasn't succeed to complete the job and the
 attempts number hasn't reached the limit.
 
-1️⃣ We create the _main workflow_ that triggers the _delayed workflow_ by emulating a _workflow_dispatch_ event using GitHub API (with help of [workflow-dispatch](https://github.com/marketplace/actions/workflow-dispatch) action):
+1️⃣ We create the _main workflow_ that triggers the _delayed workflow_ by emulating a _workflow_dispatch_ event using GitHub API (with help of [workflow-dispatch](https://github.com/benc-uk/workflow-dispatch) action):
 
 ```yaml
 # place initial steps here
@@ -156,7 +156,7 @@ Next, add steps that try to perfrom an actual work and restart the workflow:
 4. In a straightforward implementation there can be a duplication of the `actualWorkStep` in both _main workflow_ (attempt to complete the step immediatelly) and _delayed workflow_.
 5. Instead of using the same _environment_ for the job in the _delayed workflow_ (`oneDayDelay` in my
    example) you can pass its name through workflow inputs. Thus, you can specify a delay at the moment of emitting `workflow_dispatch` event, either via API or manually.
-6. Approach from the _point 5_ can solve the duplication mentioned in _point 4_. Use [this](https://github.com/marketplace/actions/workflow-dispatch-and-wait) to call the _delayed workflow_ from the _main one_ and wait until it finished.
+6. Approach from the _point 5_ can solve the duplication mentioned in _point 4_. Use [this](https://github.com/aurelien-baudet/workflow-dispatch) to call the _delayed workflow_ from the _main one_ and wait until it finished.
 7. Can be triggered manually with custom delay (see point 5).
 8. Requires creating a new repo environment with the only purpose of setting a wait timer.
 9. Environment's "wait timer" maximum value is 43200 minutes (**30 days**).
@@ -168,7 +168,7 @@ GitHub Actions offers a [”schedule” event](https://docs.github.com/en/action
 
 Going this way we will have 2 separate workflows:
 
-**1️⃣ The main workflow** (triggered by pushing a tag or a commit) with initial steps and the final step with [adding](https://github.com/marketplace/actions/add-git-tag) a special  tag (let's call it `delayed-job-tag`) to the current commit (the one that triggered the workflow):
+**1️⃣ The main workflow** (triggered by pushing a tag or a commit) with initial steps and the final step with [adding](https://github.com/cardinalby/git-tag-action) a special  tag (let's call it `delayed-job-tag`) to the current commit (the one that triggered the workflow):
 ```yaml
 # place initial steps here
 
@@ -235,7 +235,7 @@ The idea of beating the described cons of the previous approach is the following
 2. Copy this template to the `.github/workflows` directory at one of the steps of the _main workflow_.
 3. After the _scheduled workflow_ successfully finished its work, the workflow will remove itself from the `.github/workflows` directory at the last step.
 
-I have implemented the idea explained above in form of [schedule-job-action](https://github.com/marketplace/actions/schedule-job-action) and [unschedule-job-action](https://github.com/marketplace/actions/unschedule-job-action) GitHub Actions to make the code reusable and make it possible for everybody to include them in their own workflows.
+I have implemented the idea explained above in form of [schedule-job-action](https://github.com/cardinalby/schedule-job-action) and [unschedule-job-action](https://github.com/cardinalby/unschedule-job-action) GitHub Actions to make the code reusable and make it possible for everybody to include them in their own workflows.
 
 1️⃣ We have to [create](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) a new personal access token with `repo` and `workflow` permission for that, because the default `GITHUB_TOKEN` (available in every workflow) doesn’t contain the required `workflows` permission. Let's save it to the `PERSONAL_TOKEN` [secret](https://docs.github.com/en/actions/security-guides/encrypted-secrets#creating-encrypted-secrets-for-a-repository).
 
@@ -248,7 +248,7 @@ I have implemented the idea explained above in form of [schedule-job-action](htt
     templateYmlFile: '.github-scheduled-workflows/example.yml'
 ```
 
-It will read `.github-scheduled-workflows/example.yml` template, add the required metadata env variables to it and commit it to the `master` branch as a normal workflow file. We use this step instead of adding a new tag (in the initial "Scheduled workflow" approach). It's a minimalistic example. You can find [more](https://github.com/marketplace/actions/schedule-job-action#inputs) reading the documentation.
+It will read `.github-scheduled-workflows/example.yml` template, add the required metadata env variables to it and commit it to the `master` branch as a normal workflow file. We use this step instead of adding a new tag (in the initial "Scheduled workflow" approach). It's a minimalistic example. You can find [more](https://github.com/cardinalby/schedule-job-action#inputs) reading the documentation.
 
 3️⃣ Let’s create the mentioned `.github-scheduled-workflows/example.yml` scheduled workflow template with the single job:
 
@@ -287,7 +287,7 @@ jobs:
           ghToken: ${{ secrets.PERSONAL_TOKEN }}
 ```
 
-`DELAYED_JOB_CHECKOUT_REF` and other _env_ variables (required by the last “unschedule” step) will be added to the template at runtime on scheduling it from the main workflow. Additionally, using `copyEnvVariables` [input](https://github.com/marketplace/actions/schedule-job-action#inputs) of _schedule-job-action_ you can specify a list of _env_ variables whose values will be copied to the _delayed workflow_ file.
+`DELAYED_JOB_CHECKOUT_REF` and other _env_ variables (required by the last “unschedule” step) will be added to the template at runtime on scheduling it from the main workflow. Additionally, using `copyEnvVariables` [input](https://github.com/cardinalby/schedule-job-action#inputs) of _schedule-job-action_ you can specify a list of _env_ variables whose values will be copied to the _delayed workflow_ file.
 
 ### Examine the outcome
 
@@ -304,7 +304,7 @@ env:
 
 ### Infinite loop protection is there. Eventually
 
-[schedule-job-action](https://github.com/marketplace/actions/schedule-job-action) contains a special check: it does nothing if a commit that triggered the run had been made by the action itself or by any other action. If I hadn't done it, it would have created the infinite loop once the action has added `example.yml` file to the repo and have triggered itself.
+[schedule-job-action](https://github.com/cardinalby/schedule-job-action) contains a special check: it does nothing if a commit that triggered the run had been made by the action itself or by any other action. If I hadn't done it, it would have created the infinite loop once the action has added `example.yml` file to the repo and have triggered itself.
 
 ### Get the original release in the delayed job
 
