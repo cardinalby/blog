@@ -15,18 +15,7 @@
         <ol class="post-list series-post-list">
         {{ range $index, $element := $taxonomy.Pages.ByDate }}
             {{ if eq $key ($element.Params.series | urlize) }}
-                <li class="post-stub" itemprop="blogPost" itemscope="" itemtype="https://schema.org/BlogPosting">
-                    <a href="{{ $element.Permalink }}" itemprop="url">
-                        <h4 class="post-stub-title" itemprop="name">
-                            <span class="circled-number">{{ add $index 1 }}</span>
-                            {{ $element.LinkTitle }}
-                        </h4>
-                        <time class="post-stub-date" datetime='{{ .Date.Format "2006-01-02" }}'>Published {{ dateFormat (default "Mon, Jan 2, 2006" .Site.Params.dateFormat) .Date }}</time>
-                        {{ with .Params.featured }}
-                        <span class="post-stub-tag">Featured</span>
-                        {{ end }}
-                    </a>
-                </li>
+                {{ partial "series-post-stub.html" (dict "context" . "index" $index "element" $element) }}
             {{ end }}
         {{ end }}
         </ol>
