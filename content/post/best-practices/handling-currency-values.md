@@ -18,8 +18,10 @@ contains useful information you should take into considerations when you design 
 ## Domain info: currencies
 
 ### Just facts:
-- There is [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) standard describing currency codes and their minor units. 
-Data is also available in XML and CSV representation (following the links from the [page](https://www.six-group.com/en/products-services/financial-information/data-standards.html))
+There is [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) standard describing currency codes and their minor units. 
+Data is also available in XML and CSV representation (following the links from the
+[page](https://www.six-group.com/en/products-services/financial-information/data-standards.html)).
+
 1. A currency has a 3-letter code, a numeric-code and a name. A currency can have multiple listed locations.
 2. Some currencies have exchange rate pegged (fixed) to another currency.
 3. Minor units is the smallest unit of a currency, e.g. 1 dollar equals 100 cents (has 2 decimals).
@@ -27,7 +29,7 @@ Data is also available in XML and CSV representation (following the links from t
 5. [Mauritania](https://en.wikipedia.org/wiki/Mauritanian_ouguiya) and 
 [Madagascar](https://en.wikipedia.org/wiki/Malagasy_ariary) does not use a decimal division of units, 
 setting 1 _ouguiya_ = 5 _khoums_, _ariary_ = 5 _iraimbilanja_.
-6. Cryptocurrencies can have up to 18 decimals ([_ETH_](https://beaconcha.in/tools/unitConverter))
+6. Cryptocurrencies can have up to 18 decimals ([_ETH_](https://beaconcha.in/tools/unitConverter)).
 7. The number of decimals [can](https://en.wikipedia.org/wiki/Ugandan_shilling) change over time due to inflation
 8. The same can happen because of [redenomination](https://en.wikipedia.org/wiki/Redenomination) but a
 new currency code should be introduced.
@@ -109,10 +111,10 @@ The problem is _Float64_ has only 52 bits of mantissa; it's not enough to fit ar
     serialize _Int64_ number to JSON in your backend application, JavaScript application will
     overflow its number type trying to deserialize JSON containing this value.
   - These problems can be mitigated by serializing _Int64_ to string and use _BigInt_ libraries to handle these 
-    values; but it reduces the benefits from using harware-supported _Int64_ values .
+    values; but it reduces the benefits from using harware-supported _Int64_ values.
 
 #### DONT: SQL Server MONEY
-This proprietary type of Microsoft SQL Server store amounts as _Int64_ and 
+This proprietary type of Microsoft SQL Server stores amounts as _Int64_ internally and 
 [is not recommended](https://www.red-gate.com/hub/product-learning/sql-prompt/avoid-use-money-smallmoney-datatypes) 
 to use.
 
