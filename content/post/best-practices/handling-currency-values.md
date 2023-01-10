@@ -111,7 +111,7 @@ The problem is _Float64_ has only 52 bits of mantissa; it's not enough to fit ar
     serialize _Int64_ number to JSON in your backend application, JavaScript application will
     overflow its number type trying to deserialize JSON containing this value.
   - These problems can be mitigated by serializing _Int64_ to string and use _BigInt_ libraries to handle these 
-    values; but it reduces the benefits from using harware-supported _Int64_ values.
+    values; but it reduces the benefits from using hardware-supported _Int64_ values.
 
 #### DONT: SQL Server MONEY
 This proprietary type of Microsoft SQL Server stores amounts as _Int64_ internally and 
