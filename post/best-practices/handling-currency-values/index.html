@@ -59,7 +59,7 @@ has enough capacity for your use-case, I want to highlight the following <strong
 The problem is <em>Float64</em> has only 52 bits of mantissa; it&rsquo;s not enough to fit arbitrary <em>Int64</em> value.</li><li>Not all programming languages support <em>Int64</em> values:<ul><li>PHP running on x32 architectures can&rsquo;t handle <em>Int64</em> values and none of unsigned types.</li><li>JavaScript uses signed <em>Float64</em> as internal representation for <em>number</em> data type. It means that even if you can
 serialize <em>Int64</em> number to JSON in your backend application, JavaScript application will
 overflow its number type trying to deserialize JSON containing this value.</li><li>These problems can be mitigated by serializing <em>Int64</em> to string and use <em>BigInt</em> libraries to handle these
-values; but it reduces the benefits from using harware-supported <em>Int64</em> values.</li></ul></li></ul><h4 id=dont-sql-server-money>DONT: SQL Server MONEY</h4><p>This proprietary type of Microsoft SQL Server stores amounts as <em>Int64</em> internally and
+values; but it reduces the benefits from using hardware-supported <em>Int64</em> values.</li></ul></li></ul><h4 id=dont-sql-server-money>DONT: SQL Server MONEY</h4><p>This proprietary type of Microsoft SQL Server stores amounts as <em>Int64</em> internally and
 <a href=https://www.red-gate.com/hub/product-learning/sql-prompt/avoid-use-money-smallmoney-datatypes target=_blank>is not recommended</a>
 to use.</p><h2 id=decimal>Decimal</h2><p>The last feasible option (and my favorite) is using special <em>Decimal</em> numeric type. As it was mentioned above,
 in databases it has a special binary representation that requires more space comparing with regular integers and
