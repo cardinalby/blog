@@ -17,9 +17,8 @@ The obvious option is using the ["Reusable workflows" feature](https://docs.gith
 
 ### 🥡 Takeaways:
 
-- Reusable workflows can't call other reusable workflows.
-- The `strategy` property is not supported in any job that calls a reusable workflow.
-- Env variables and secrets are not inherited.
+- Nested reusable workflow calls are allowed (up to 4 levels) while loops are not permitted. 
+- Env variables are not inherited. Secrets can be inherited by using special `secrets: inherit` job param.
 - It's not convenient if you need to extract and reuse several steps inside one job.
 - Since it runs as a separate job, you have to use [build artifacts](https://docs.github.com/en/actions/advanced-guides/storing-workflow-data-as-artifacts) to share files between a reusable workflow and your main workflow.
 - You can call a reusable workflow in synchronous or asynchronous manner (managing it by jobs ordering using `needs` keys).
