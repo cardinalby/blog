@@ -206,6 +206,32 @@ p {
     border-bottom-style: dashed;
 }
 
+/* blockquote */
+
+blockquote {
+    border-left: 15px solid #888888;
+    margin: 17px 0;
+    padding: 14px 30px 1px;
+    background-color: #efefef;
+}
+
+blockquote p {
+    color: #5c5c5c;
+    display: block;
+    font-style: italic;
+    margin: 0;
+    width: 100%;
+}
+
+blockquote h5 {
+    margin-top: 5px;
+}
+
+blockquote p code {
+    background-color: #dededb;
+    color: #313131;
+}
+
 /* list */
 
 h4.post-stub-title {
