@@ -209,10 +209,11 @@ p {
 /* blockquote */
 
 blockquote {
-    border-left: 15px solid #888888;
+    border-left: 15px solid #a3a3a1;
     margin: 17px 0;
     padding: 14px 30px 1px;
-    background-color: #efefef;
+    background-color: #f6f4f2;
+    border-radius: 0 10px 10px 0;
 }
 
 blockquote p {
@@ -228,7 +229,7 @@ blockquote h5 {
 }
 
 blockquote p code {
-    background-color: #dededb;
+    background-color: #e5e5e5;
     color: #313131;
 }
 
