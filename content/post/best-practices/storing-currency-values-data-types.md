@@ -1,5 +1,5 @@
 ---
-title: "Handling currency values: facts and best practices"
+title: "Storing currency values: data types, caveats, best practices"
 date: 2023-01-08
 draft: false
 categories:
@@ -8,7 +8,7 @@ tags:
 - data-types
 - computer-science
 - db
-image: "images/posts/best-practices/handling-currency-values/title.png"
+image: "images/posts/best-practices/storing-currency-values-data-types/title.png"
 ---
 ## Intro
 
@@ -49,12 +49,12 @@ There are different data types that can technically store money values. Let’s 
 ## 1️⃣ Integer number of minor units
 One of the popular ([Stripe](https://stripe.com/docs/currencies#zero-decimal) approaches) is storing an integer number of minor units. Simply put, you store **_5 $_** as **_500 cents_**. This way you can do accurate calculations and comparisons internally and then display the result formatting the number in a proper way as an amount of dollars.
 
-Taking into consideration the requirement about **extra precision** (let's say 3 extra decimals) you will represent **_5 $_** as **_500 000_** of **"micro units"**, where **_1_** _micro unit_ equals **_1 000 cents_**. 
+Taking into consideration the requirement about **additional precision** (let's say 3 extra decimals) you will represent **_5 $_** as **_500 000_** of **"micro units"**, where **_1_** _micro unit_ equals **_1 000 cents_**. 
 
 ### Issues and limitations:
 - It's preferable to consider the **precision beforehand**.
 - It's **complicates** the business logic of the application and introduces **error-prone** value **conversions** between units, micro-units and normal currency amounts that are presented to a user or external systems.
-- Due to the _fact 7_ (_minor unit_ of a currency can change) or because of the need to increase _extra precision_ you may need to **rescale** all values in the future.
+- Due to the _fact 7_ (_minor unit_ of a currency can change) or because of the need to add _additional precision_ you may need to **rescale** all values in the future.
 - External systems you interact with can **misinterpret** the **magnitude** of an integer-represented
   value **after rescaling**:
   - 3rd-party services/customers which are not aware of the rescaling.
