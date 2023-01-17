@@ -92,6 +92,10 @@ pre code {
     background-color: inherit;
 }
 
+a code {
+    color: #cf0000;
+}
+
 p {
     line-height: 1.5 !important;
     margin: 0 0 20px !important;
@@ -233,6 +237,10 @@ blockquote p code {
     color: #313131;
 }
 
+blockquote a code {
+    color: #af0000;
+}
+
 /* list */
 
 h4.post-stub-title {
@@ -249,4 +257,25 @@ h4.post-stub-title {
     footer.footer {
         display: none;
     }
+}
+
+h1 a.anchorizer,
+h2 a.anchorizer,
+h3 a.anchorizer,
+h4 a.anchorizer,
+h5 a.anchorizer,
+h6 a.anchorizer {
+    display: none;
+    font-size: 80%;
+    margin-left: 0.5em;
+    vertical-align: middle;
+}
+
+h1:hover a.anchorizer,
+h2:hover a.anchorizer,
+h3:hover a.anchorizer,
+h4:hover a.anchorizer,
+h5:hover a.anchorizer,
+h6:hover a.anchorizer {
+    display: inline;
 }
