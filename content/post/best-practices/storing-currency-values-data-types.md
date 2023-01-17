@@ -17,7 +17,7 @@ Repeatedly facing questions, debates, and mistakes related to storing and repres
 ## Domain info: currencies
 
 ### Just facts:
-There is an [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) standard that describes currency codes and their minor units. Data are also available in XML and CSV representations (following the links from the [page](https://www.six-group.com/en/products-services/financial-information/data-standards.html)).
+There is an [`ISO 4217`](https://en.wikipedia.org/wiki/ISO_4217) standard that describes currency codes and their minor units. Data are also available in XML and CSV representations (following the links from the [page](https://www.six-group.com/en/products-services/financial-information/data-standards.html)).
 
 1. A currency has a 3-letter code, a numeric code, and a name. A currency may have multiple listed locations.
 2. Some currencies have exchange rates that are pegged (fixed) to another currency.
@@ -35,11 +35,11 @@ setting 1 _ouguiya_ = 5 _khoums_, _ariary_ = 5 _iraimbilanja_.
 ### Storage requirements
 1. Obvious one: store currency amounts **along with** a link to the currency **specification**
    (foreign key in databases, special class in programming languages) to interpret and operate with it correctly.
-3. Storing a **specification** for a currency you should include:
-  - **_Minimum accountable unit_** instead of or in addition to **precision** (see _fact 5_).
-  - **_Lowest physical denomination_** of the currency if you deal with cash operations (see _fact 9_).
-4. Ensure **precision** for currency amounts equals the max precision of all supported currencies.
-5. Consider adding **additional precision** for operational needs: accumulators and intermediate calculations or for storing
+2. Storing a **specification** for a currency you should include:
+   - **_Minimum accountable unit_** instead of or in addition to **precision** (see _fact 5_).
+   - **_Lowest physical denomination_** of the currency if you deal with cash operations (see _fact 9_).
+3. Ensure **precision** for currency amounts equals the max precision of all supported currencies.
+4. Consider adding **additional precision** for operational needs: accumulators and intermediate calculations or for storing
    prices of small units of goods. For example, you may want to accumulate a _10 %_ fee from 1 cent operations,
    sum them up until they reach the _minimum accountable unit_ (cent) and withdraw from a client.
 
