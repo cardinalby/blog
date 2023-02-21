@@ -23,7 +23,7 @@ First, you need to find out your extension UUID. You can find it on your extensi
 Next, follow the [official documentation](https://addons-server.readthedocs.io/en/latest/topics/api/auth.html) and obtain `jwtIssuer` and `jwtSecret` values required for accessing the API.
 
 ## 🔒 Add these values to **_secrets_**:
-* `FF_EXTENSION_ID ` - UUID of your extension
+* `FF_EXTENSION_ID ` - UUID of your extension (e.g. `{c23c69a7-f889-447c-9d6b-7694be8035bc}`)
 * `FF_JWT_ISSUER `
 * `FF_JWT_SECRET `
 
@@ -84,7 +84,7 @@ jobs:
 Also, the publishing action can sometimes fail with `timeoutError == 'true'` output. It means, the extension was uploaded but the waiting for its processing by Addons server was timed out. I didn't include a handling of this error to the workflow, but you can: 
 - Specify longer timeout with `timeoutMs` input of _webext-buildtools-firefox-addons-action_ action. Default timeout is _600000_ ms (10 min).
 - Do not fail the job in the last step if `steps.addonsDeploy.outputs.timeoutError == 'true'`.
-- Just rerun the workflow after a while in the case of timeout. If the extension has been processed after the first run, the workflow will pass (with `steps.addonsDeploy.outputs.sameVersionAlreadyUploadedError != 'true'`).
+- Just rerun the workflow after a while in the case of timeout. If the extension has been processed after the first run, the workflow will pass (with `steps.addonsDeploy.outputs.sameVersionAlreadyUploadedError == 'true'`).
 
 ### Not covered: sources uploading
 
