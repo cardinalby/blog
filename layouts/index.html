@@ -4,27 +4,29 @@
     {{ partial "intro.html" . }}
     {{ $pag := .Paginate (where .Site.RegularPages "Type" "in" .Site.Params.mainSections) }}
 
-    {{ range $key, $taxonomy := .Site.Taxonomies.series }}
-        {{ $seriesName := (index $taxonomy.Pages 0).Params.series }}
-
-        <h4 class="post-stub">
-            <a href='{{ "series" | relURL}}/{{ $seriesName | urlize }}'>
-                <span class="series-post-list-badge">SERIES</span> {{ (index $taxonomy.Pages 0).Params.series }}
-            </a>
-        </h4>
-        <ol class="post-list series-post-list">
-        {{ range $index, $element := $taxonomy.Pages.ByDate }}
-            {{ if eq $key ($element.Params.series | urlize) }}
-                {{ partial "series-post-stub.html" (dict "context" . "index" $index "element" $element) }}
-            {{ end }}
-        {{ end }}
-        </ol>
-    {{ end }}
-
     <ol class="post-list">
-
+        {{ $processedSeries := newScratch }}
         {{ range $pag.Pages }}
-            {{ if not .Params.series }}
+            {{ if .Params.series }}
+                {{ if not ($processedSeries.Get .Params.series)}}
+                    {{ $taxonomy := .Site.Taxonomies.series.Get (.Params.series | urlize) }}
+                    {{ $seriesUrl := .Params.series | urlize }}
+
+                    <h4 class="post-stub">
+                        <a href='{{ "series" | relURL}}/{{ $seriesUrl }}'>
+                            <span class="series-post-list-badge">SERIES</span> {{ .Params.series }}
+                        </a>
+                    </h4>
+                    <ol class="post-list series-post-list">
+                        {{ range $index, $element := $taxonomy.Pages.ByDate }}
+                            {{ if eq $seriesUrl ($element.Params.series | urlize) }}
+                                {{ partial "series-post-stub.html" (dict "context" . "index" $index "element" $element) }}
+                            {{ end }}
+                        {{ end }}
+                    </ol>
+                    {{ $processedSeries.Set .Params.series true}}
+                {{ end }}
+            {{ else }}
                 {{ partial "post-stub.html" . }}
             {{ end }}
         {{ end }}
