@@ -17,14 +17,14 @@ Repeatedly facing questions, debates, and mistakes related to storing and repres
 ## Domain info: currencies
 
 ### Just facts:
-There is an [`ISO 4217`](https://en.wikipedia.org/wiki/ISO_4217) standard that describes currency codes and their minor units. Data are also available in XML and CSV representations (following the links from the [page](https://www.six-group.com/en/products-services/financial-information/data-standards.html)).
+There is [`ISO 4217`](https://en.wikipedia.org/wiki/ISO_4217) standard that describes currency codes and their minor units. Data are also available in XML and CSV representations (following the links from the [page](https://www.six-group.com/en/products-services/financial-information/data-standards.html)).
 
 1. A currency has a 3-letter code, a numeric code, and a name. A currency may have multiple listed locations.
 2. Some currencies have exchange rates that are pegged (fixed) to another currency.
 3. **Minor unit** is the smallest unit of a currency, e.g. 1 dollar equals 100 cents (with 2 decimals).
 4. Most currencies have 2 decimals; some have none, and some have 3 decimals.
 5. [Mauritania](https://en.wikipedia.org/wiki/Mauritanian_ouguiya) and 
-[Madagascar](https://en.wikipedia.org/wiki/Malagasy_ariary) does **not** use a **decimal** division of units, 
+[Madagascar](https://en.wikipedia.org/wiki/Malagasy_ariary) do **not** use a **decimal** division of units, 
 setting 1 _ouguiya_ = 5 _khoums_, _ariary_ = 5 _iraimbilanja_.
 6. Cryptocurrencies can have up to 18 decimals ([_ETH_](https://beaconcha.in/tools/unitConverter)).
 7. The number of decimals [can](https://en.wikipedia.org/wiki/Ugandan_shilling) **change** over time due to inflation.
@@ -34,7 +34,7 @@ setting 1 _ouguiya_ = 5 _khoums_, _ariary_ = 5 _iraimbilanja_.
 
 ### Storage requirements
 1. Obvious one: store currency amounts **along with** a link to the currency **specification**
-   (foreign key in databases, special class in programming languages) to interpret and operate with it correctly.
+   (foreign key in databases, a special class in programming languages) to interpret and operate with it correctly.
 2. Storing a **specification** for a currency you should include:
    - **_Minimum accountable unit_** instead of or in addition to **precision** (see _fact 5_).
    - **_Lowest physical denomination_** of the currency if you deal with cash operations (see _fact 9_).
@@ -53,13 +53,13 @@ Taking into consideration the requirement about **additional precision** (let's 
 
 ### Issues and limitations:
 - It's preferable to consider the **precision beforehand**.
-- It's **complicates** the business logic of the application and introduces **error-prone** value **conversions** between units, micro-units and normal currency amounts that are presented to a user or external systems.
+- It **complicates** the business logic of the application and introduces **error-prone** value **conversions** between units, micro-units and normal currency amounts that are presented to a user or external systems.
 - Due to the _fact 7_ (_minor unit_ of a currency can change) or because of the need to add _additional precision_ you may need to **rescale** all values in the future.
 - External systems you interact with can **misinterpret** the **magnitude** of an integer-represented
   value **after rescaling**:
   - 3rd-party services/customers which are not aware of the rescaling.
   - Your own services that can't be immediately updated with the new definitions of the currencies (limitation of the deployment process, caches).
-  - A message queue, or an event streaming platform where you can't modify messages during the rescaling process.
+  - A message queue, or an event streaming platform where you can't modify old messages during the rescaling process.
 - This problem can be solved by **explicitly passing** the **scale** of a number everywhere along with the number.
 
 ### Suggested type: BigInt
@@ -100,7 +100,7 @@ Some choose signed or unsigned **_Int64_** (also referenced as _BigInt_ in SQL, 
 - **Not all** programming **languages support** _Int64_ values:
   - PHP running on x32 architectures cannot handle _Int64_ values.
   - Some languages (Java, PHP) do not support any unsigned integers.
-  - JavaScript uses signed _Float64_ as an internal representation for the _number_ data type. This means that even if one can serialize _Int64_ numbers to JSON in their backend application, by default a JavaScript application will overflow its number type trying to deserialize JSON containing this value.
+  - JavaScript uses signed _Float64_ as an internal representation for the _number_ data type. It means that even if one can serialize _Int64_ numbers to JSON in their backend application, by default a JavaScript application will overflow its number type trying to deserialize JSON containing this value.
 
 The problem with support of _Int64_ in external systems can be **mitigated** by serializing _Int64_ **to a string** and using _BigInt_ types to handle these values, but it reduces the benefits from using hardware-supported _Int64_ values.
 
@@ -124,7 +124,7 @@ The problem with support of _Int64_ in external systems can be **mitigated** by 
 
 ## 2️⃣ Decimal
 
-This approach implies using special _Decimal_ numeric type that allows to store **fractional decimal numbers** accurately with the specified precision (maximum precision differs in different databases).
+This approach implies using a special _Decimal_ numeric type that allows to store **fractional decimal numbers** accurately with the specified precision (maximum precision differs in different databases).
 
 Most [languages](https://en.wikipedia.org/wiki/List_of_arbitrary-precision_arithmetic_software) (
 [JavaScript](https://github.com/MikeMcl/bignumber.js/),
