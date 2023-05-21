@@ -179,10 +179,10 @@ I can imagine a game or an expenses splitting application in which you need to t
 
 Operations on **non-decimal units**, such as time and distance units, historical [non-decimal currencies](https://en.wikipedia.org/wiki/Non-decimal_currency), calculating probabilities, etc., may be candidates for introducing rational numbers when absolute precision is required.
 
-There is standard [Fractions](https://docs.python.org/3/library/fractions.html) library in Python, and 3rd-party libraries in other languages:
+There is standard [Fractions](https://docs.python.org/3/library/fractions.html) library in Python, 
+[big.Rat](https://pkg.go.dev/math/big#Rat) in Go and 3rd-party libraries in other languages:
 [JavaScript](https://github.com/infusion/Fraction.js/), 
-[PHP](https://github.com/brick/math), 
-[Go](https://github.com/alex-ant/gomath), 
+[PHP](https://github.com/brick/math),
 [C#](https://github.com/tompazourek/Rationals), 
 [C++](https://www.boost.org/doc/libs/1_81_0/libs/rational/rational.html). 
 
