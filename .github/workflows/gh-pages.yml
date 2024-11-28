@@ -8,15 +8,21 @@ jobs:
   deploy:
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         with:
           submodules: true  # Fetch Hugo themes (true OR recursive)
           fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
 
+      - uses: cardinalby/export-env-action@v2
+        id: hugo-version
+        with:
+          envFile: './.env'
+          expand: true
+
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
         with:
-          hugo-version: 'latest'
+          hugo-version: '${{ steps.hugo-version.outputs.HUGO_VERSION }}'
           # extended: true
 
       - name: Build
