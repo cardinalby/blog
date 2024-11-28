@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Ts on Tech grumbling</title><link>https://cardinalby.github.io/blog/tags/ts/</link><description>Recent content in Ts on Tech grumbling</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>cardinalby</copyright><lastBuildDate>Thu, 28 Nov 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://cardinalby.github.io/blog/tags/ts/index.xml" rel="self" type="application/rss+xml"/><item><title>Google Maps Extended Routes browser extension</title><link>https://cardinalby.github.io/blog/project/google-maps-extended-routes/</link><pubDate>Thu, 28 Nov 2024 00:00:00 +0000</pubDate><guid>https://cardinalby.github.io/blog/project/google-maps-extended-routes/</guid><description>The great web extension for motorbikers, cyclists and everyone who use Google Maps for planning long routes.
+See the homepage 🚴 Extend routes beyond 10 points
+📏 Optimize multi-stop routes for shorter travel to save time and fuel
+📱 Prepare a route for mobile navigation solving &amp;ldquo;disappearing waypoints&amp;rdquo; problem
+🌍 Export your route to popular services: Apple Maps, TomTom Planner, Bing Maps and Yandex Maps
+💾 Download a route as GPX or KML file</description></item><item><title>Memrise Audio Uploader</title><link>https://cardinalby.github.io/blog/project/memrise-audio-uploader/</link><pubDate>Tue, 12 Feb 2019 00:00:00 +0000</pubDate><guid>https://cardinalby.github.io/blog/project/memrise-audio-uploader/</guid><description>Memrise Audio Uploader is a Chrome extension which allows you to upload sounds of words and phrases pronunciation from soundoftext.com to memrise.com course.
+Check out the source code https://github.com/cardinalby/memrise-audio-uploader
+Install from the stores Chrome Web Store
+Firefox Add-ons
+To download the offline versions please go to the Releases page.
+Screenshots</description></item></channel></rss>
