@@ -1,14 +1,16 @@
 ---
-title: "\"Tea collage\" creative project"
-description: "Own art project, digital addition to the collage of tea wrappings"
-date: 2021-07-10
+title: "Google Maps Extended Routes browser extension"
+description: "The great web extension for motorbikers, cyclists and everyone who use Google Maps for planning long routes."
+date: 2024-11-28
 tags:
-- react
-- photoshop
-- art
+- js
+- ts
+- web-extension
 ---
 
-The great web extension for motorbikers, cyclists and everyone who use Google Maps for planning long routes. 
+The great web extension for motorbikers, cyclists and everyone who use Google Maps for planning long routes.
+
+### [See the homepage](https://gmaps-extended-routes.pages.dev/)
 
 🚴   Extend routes beyond 10 points
 
@@ -26,6 +28,4 @@ The great web extension for motorbikers, cyclists and everyone who use Google Ma
 
 🔄   Reverse any routes, not only with two stops
 
-⌨️   Use “Street View Images” toggle shortcut 
-
-### [See the homepage](https://gmaps-extended-routes.pages.dev/)
+⌨️   Use “Street View Images” toggle shortcut

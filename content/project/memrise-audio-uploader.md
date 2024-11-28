@@ -4,6 +4,7 @@ description: "Chrome extension which allows you to automate sounds of words and 
 date: 2019-02-12
 tags:
 - js
+- ts
 - web-extension
 ---
 
