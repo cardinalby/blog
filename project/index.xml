@@ -3,7 +3,10 @@ See the homepage 🚴 Extend routes beyond 10 points
 📏 Optimize multi-stop routes for shorter travel to save time and fuel
 📱 Prepare a route for mobile navigation solving &amp;ldquo;disappearing waypoints&amp;rdquo; problem
 🌍 Export your route to popular services: Apple Maps, TomTom Planner, Bing Maps and Yandex Maps
-💾 Download a route as GPX or KML file</description></item><item><title>GitHub Actions integration testing lib</title><link>https://cardinalby.github.io/blog/project/github-actions-testing-lib/</link><pubDate>Tue, 18 Jan 2022 00:00:00 +0000</pubDate><guid>https://cardinalby.github.io/blog/project/github-actions-testing-lib/</guid><description>Check out https://github.com/cardinalby/github-action-ts-run-api
+💾 Download a route as GPX or KML file</description></item><item><title>VLC Sync Play</title><link>https://cardinalby.github.io/blog/project/vlc-sync-play/</link><pubDate>Wed, 23 Oct 2024 00:00:00 +0000</pubDate><guid>https://cardinalby.github.io/blog/project/vlc-sync-play/</guid><description>I created it to watch movies with my girlfriend on one screen but listening to 2 different audio tracks. Each of us has a pair of earphones and each listens to its own audio track.
+The key feature is that they are synchronized.
+I can pause, play, seek, and the other player will do the same.
+See the Github repo It&amp;rsquo;s an experimental project, I wanted to show that it&amp;rsquo;s possible to create such a tool using Golang, even though it&amp;rsquo;s not the best language for GUI applications.</description></item><item><title>GitHub Actions integration testing lib</title><link>https://cardinalby.github.io/blog/project/github-actions-testing-lib/</link><pubDate>Tue, 18 Jan 2022 00:00:00 +0000</pubDate><guid>https://cardinalby.github.io/blog/project/github-actions-testing-lib/</guid><description>Check out https://github.com/cardinalby/github-action-ts-run-api
 Purpose 🔶 Executing your GitHub action locally (or at any other environment).
 🔶 Writing integration and functional tests, run them locally and at CI.
 🔶 Having a short feedback loop without pushing and checking it behaviour at real GitHub runners every time.
