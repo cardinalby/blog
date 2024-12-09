@@ -10,7 +10,7 @@ tags:
 
 The great web extension for motorbikers, cyclists and everyone who use Google Maps for planning long routes.
 
-{{< youtube 7HRL7tojfwE >}}
+{{< youtube gz_Ie-80ab8 >}}
 
 ### [See the homepage](https://gmaps-extended-routes.pages.dev/)
 
