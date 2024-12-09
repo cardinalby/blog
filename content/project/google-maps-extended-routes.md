@@ -13,6 +13,7 @@ The great web extension for motorbikers, cyclists and everyone who use Google Ma
 {{< youtube gz_Ie-80ab8 >}}
 
 ### [See the homepage](https://gmaps-extended-routes.pages.dev/)
+### [Read Medium story](https://medium.com/@cardinalby/effective-routes-planning-in-google-maps-for-cyclists-and-motorbikers-01edd58283d8)
 
 🚴   Extend routes beyond 10 points
 
