@@ -3,11 +3,16 @@ title: Tech grumbling
 theme: ghostwriter
 languageCode: en-us
 copyright: cardinalby
-disqusShortname: "https-cardinalby-github-io-blog"
 googleAnalytics: G-S1HYRNQV86
 pygmentsUseClasses: true
 pygmentsCodefences: true
-paginate: 2147483647
+
+services:
+  disqus:
+    shortname: "https-cardinalby-github-io-blog"
+
+pagination:
+  pagerSize: 2147483647
 
 markup:
   highlight:

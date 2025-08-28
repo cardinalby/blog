@@ -1,12 +1,12 @@
-{{ $series_name := .Page.Params.series | urlize }}
-{{ $page_name := .Page.Name }}
+{{ $series_name := .Params.series | lower }}
+{{ $page_name := .File.LogicalName }}
 
 {{ if $series_name }}
 
 <div class="series-parts-block">
     <div class="series-parts-title">
         <div class="series-label">SERIES</div>
-        <div class="series-name"><a href='{{ "series" | relURL}}/{{ $series_name }}'>{{ .Page.Params.series }}</a></div>
+        <div class="series-name"><a href='{{ "series" | relURL}}/{{ .Params.series | urlize }}'>{{ .Params.series }}</a></div>
     </div>
     {{ $partNumber := 0 }}
     {{ $seriesLength := 0 }}
@@ -14,7 +14,7 @@
         {{ if eq $key $series_name }}
             {{ $seriesLength = len $taxonomy.Pages.ByDate}}
             {{ range $index, $element := $taxonomy.Pages.ByDate }}
-                {{ $isCurrent := eq $element.Name $page_name }}
+                {{ $isCurrent := eq $element.File.LogicalName $page_name }}
                 {{ if $isCurrent }}{{ $partNumber = add $index 1}}{{ end }}
                 <div class="series-part {{ if $isCurrent }}current{{end}}">
                     <span class="circled-number">{{ add $index 1 }}</span>
@@ -26,6 +26,6 @@
 </div>
 
 <h3 class="series-part-block-print-only">
-    Post <b>{{ $partNumber }}</b> of <b>{{ $seriesLength }}</b> in "{{ .Page.Params.series }}" series
+    Post <b>{{ $partNumber }}</b> of <b>{{ $seriesLength }}</b> in "{{ .Params.series }}" series
 </h3>
 {{ end }}
