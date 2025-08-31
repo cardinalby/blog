@@ -1,22 +1,41 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Projects on Tech grumbling</title><link>https://cardinalby.github.io/blog/project/</link><description>Recent content in Projects on Tech grumbling</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><copyright>cardinalby</copyright><lastBuildDate>Thu, 28 Nov 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://cardinalby.github.io/blog/project/index.xml" rel="self" type="application/rss+xml"/><item><title>Google Maps Extended Routes browser extension</title><link>https://cardinalby.github.io/blog/project/google-maps-extended-routes/</link><pubDate>Thu, 28 Nov 2024 00:00:00 +0000</pubDate><guid>https://cardinalby.github.io/blog/project/google-maps-extended-routes/</guid><description>The great web extension for motorbikers, cyclists and everyone who use Google Maps for planning long routes.
-See the homepage Read Medium story 🚴 Extend routes beyond 10 points
-📏 Optimize multi-stop routes for shorter travel to save time and fuel
-📱 Prepare a route for mobile navigation solving &amp;ldquo;disappearing waypoints&amp;rdquo; problem
-🌍 Export your route to popular services: Apple Maps, TomTom Planner, Bing Maps and Yandex Maps
-💾 Download a route as GPX or KML file</description></item><item><title>VLC Sync Play</title><link>https://cardinalby.github.io/blog/project/vlc-sync-play/</link><pubDate>Wed, 23 Oct 2024 00:00:00 +0000</pubDate><guid>https://cardinalby.github.io/blog/project/vlc-sync-play/</guid><description>I created it to watch movies with my girlfriend on one screen but listening to 2 different audio tracks. Each of us has a pair of earphones and each listens to its own audio track.
-The key feature is that they are synchronized.
-I can pause, play, seek, and the other player will do the same.
-See the Github repo It&amp;rsquo;s an experimental project, I wanted to show that it&amp;rsquo;s possible to create such a tool using Golang, even though it&amp;rsquo;s not the best language for GUI applications.</description></item><item><title>GitHub Actions integration testing lib</title><link>https://cardinalby.github.io/blog/project/github-actions-testing-lib/</link><pubDate>Tue, 18 Jan 2022 00:00:00 +0000</pubDate><guid>https://cardinalby.github.io/blog/project/github-actions-testing-lib/</guid><description>Check out https://github.com/cardinalby/github-action-ts-run-api
-Purpose 🔶 Executing your GitHub action locally (or at any other environment).
-🔶 Writing integration and functional tests, run them locally and at CI.
-🔶 Having a short feedback loop without pushing and checking it behaviour at real GitHub runners every time.
-Features ✅ Supports executing JavaScript and Docker actions.
-✅ Tested under Windows, Linux and macOS locally and on GitHub hosted runners.
-✅ Works well with Docker Desktop under Windows and macOS (for Docker actions).</description></item><item><title>"Tea collage" creative project</title><link>https://cardinalby.github.io/blog/project/tea-collage/</link><pubDate>Sat, 10 Jul 2021 00:00:00 +0000</pubDate><guid>https://cardinalby.github.io/blog/project/tea-collage/</guid><description>The project is a digital interactive addition to a collage of Chinese tea wrappers that I have been drinking for the past three years.
-I have always loved teas and drank them in exorbitant quantities, but I went deeper into the topic of Chinese teas since 2015.
-Open Tea Collage One of the my favorite tea sort is shu and shen pu-erh; traditionally they are made in the form of pressed cakes.</description></item><item><title>Memrise Audio Uploader</title><link>https://cardinalby.github.io/blog/project/memrise-audio-uploader/</link><pubDate>Tue, 12 Feb 2019 00:00:00 +0000</pubDate><guid>https://cardinalby.github.io/blog/project/memrise-audio-uploader/</guid><description>Memrise Audio Uploader is a Chrome extension which allows you to upload sounds of words and phrases pronunciation from soundoftext.com to memrise.com course.
-Check out the source code https://github.com/cardinalby/memrise-audio-uploader
-Install from the stores Chrome Web Store
-Firefox Add-ons
-To download the offline versions please go to the Releases page.
-Screenshots</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Projects on Tech grumbling</title><link>https://cardinalby.github.io/blog/project/</link><description>Recent content in Projects on Tech grumbling</description><generator>Hugo</generator><language>en-us</language><copyright>cardinalby</copyright><lastBuildDate>Thu, 28 Nov 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://cardinalby.github.io/blog/project/index.xml" rel="self" type="application/rss+xml"/><item><title>Google Maps Extended Routes browser extension</title><link>https://cardinalby.github.io/blog/project/google-maps-extended-routes/</link><pubDate>Thu, 28 Nov 2024 00:00:00 +0000</pubDate><guid>https://cardinalby.github.io/blog/project/google-maps-extended-routes/</guid><description>&lt;p>The great web extension for motorbikers, cyclists and everyone who use Google Maps for planning long routes.&lt;/p>
+&lt;div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+ &lt;iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" loading="eager" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/gz_Ie-80ab8?autoplay=0&amp;amp;controls=1&amp;amp;end=0&amp;amp;loop=0&amp;amp;mute=0&amp;amp;start=0" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" title="YouTube video">&lt;/iframe>
+ &lt;/div>
+
+&lt;h3 id="see-the-homepage">&lt;a href="https://gmaps-extended-routes.pages.dev/" target="_blank">See the homepage&lt;/a>&lt;/h3>
+&lt;h3 id="read-medium-story">&lt;a href="https://medium.com/@cardinalby/effective-routes-planning-in-google-maps-for-cyclists-and-motorbikers-01edd58283d8" target="_blank">Read Medium story&lt;/a>&lt;/h3>
+&lt;p>🚴 Extend routes beyond 10 points&lt;/p>
+&lt;p>📏 Optimize multi-stop routes for shorter travel to save time and fuel&lt;/p>
+&lt;p>📱 Prepare a route for mobile navigation solving &amp;ldquo;disappearing waypoints&amp;rdquo; problem&lt;/p></description></item><item><title>VLC Sync Play</title><link>https://cardinalby.github.io/blog/project/vlc-sync-play/</link><pubDate>Wed, 23 Oct 2024 00:00:00 +0000</pubDate><guid>https://cardinalby.github.io/blog/project/vlc-sync-play/</guid><description>&lt;p>I created it to watch movies with my girlfriend on one screen but listening to 2 different audio tracks. Each of us has a pair of earphones and each listens to its own audio track.&lt;/p>
+&lt;p>The key feature is that they are synchronized.&lt;/p>
+&lt;p>I can pause, play, seek, and the other player will do the same.&lt;/p>
+&lt;p>&lt;img src="images/projects/vlc-sync-play/promo.png" alt="VLC sync play" />&lt;/p>
+&lt;h3 id="see-the-github-repo">&lt;a href="https://github.com/cardinalby/vlc-sync-play" target="_blank">See the Github repo&lt;/a>&lt;/h3>
+&lt;p>It&amp;rsquo;s an experimental project, I wanted to show that it&amp;rsquo;s possible to create such a tool using Golang,
+even though it&amp;rsquo;s not the best language for GUI applications.&lt;/p></description></item><item><title>GitHub Actions integration testing lib</title><link>https://cardinalby.github.io/blog/project/github-actions-testing-lib/</link><pubDate>Tue, 18 Jan 2022 00:00:00 +0000</pubDate><guid>https://cardinalby.github.io/blog/project/github-actions-testing-lib/</guid><description>&lt;h2 id="check-out">Check out&lt;/h2>
+&lt;p>&lt;a href="https://github.com/cardinalby/github-action-ts-run-api" target="_blank">https://github.com/cardinalby/github-action-ts-run-api&lt;/a>&lt;/p>
+&lt;h2 id="purpose">Purpose&lt;/h2>
+&lt;p>🔶 Executing your GitHub action &lt;strong>locally&lt;/strong> (or at any other environment).&lt;/p>
+&lt;p>🔶 Writing integration and functional tests, run them locally and at CI.&lt;/p>
+&lt;p>🔶 Having a short feedback loop without pushing and checking it behaviour at
+real GitHub runners every time.&lt;/p>
+&lt;h2 id="features">Features&lt;/h2>
+&lt;p>✅ Supports executing JavaScript and Docker actions.&lt;/p>
+&lt;p>✅ Tested under Windows, Linux and macOS locally and on GitHub hosted runners.&lt;/p>
+&lt;p>✅ Works well with Docker Desktop under Windows and macOS (for Docker actions).&lt;/p></description></item><item><title>"Tea collage" creative project</title><link>https://cardinalby.github.io/blog/project/tea-collage/</link><pubDate>Sat, 10 Jul 2021 00:00:00 +0000</pubDate><guid>https://cardinalby.github.io/blog/project/tea-collage/</guid><description>&lt;p>The project is a digital interactive addition to a collage of Chinese tea wrappers that I have been drinking for the past three years.&lt;/p>
+&lt;p>I have always loved teas and drank them in exorbitant quantities, but I went deeper into the topic of Chinese teas since 2015.&lt;/p>
+&lt;h3 id="open-tea-collage">&lt;a href="https://cardinalby.github.io/tea-collage" target="_blank">Open Tea Collage&lt;/a>&lt;/h3>
+&lt;p>&lt;a href="https://cardinalby.github.io/tea-collage" target="_blank">&lt;img src="images/projects/tea-collage/collage.jpg" alt="Tea collage" />&lt;/a>&lt;/p>
+&lt;p>One of the my favorite tea sort is shu and shen pu-erh; traditionally they are made in the form of pressed cakes. Very often they are wrapped in a paper wrapper with a beautiful art made for particular tea by order of a store or supplier. I always felt sorry to throw out these wrappers, so I came up with the idea to cut fragments out of them and present the fragments in the form of a collage.&lt;/p></description></item><item><title>Memrise Audio Uploader</title><link>https://cardinalby.github.io/blog/project/memrise-audio-uploader/</link><pubDate>Tue, 12 Feb 2019 00:00:00 +0000</pubDate><guid>https://cardinalby.github.io/blog/project/memrise-audio-uploader/</guid><description>&lt;p>Memrise Audio Uploader is a Chrome extension which allows you to upload sounds of words and phrases pronunciation from &lt;a href="http://soundoftext.com" target="_blank">soundoftext.com&lt;/a> to &lt;a href="http://memrise.com" target="_blank">memrise.com&lt;/a> course.&lt;/p>
+&lt;h2 id="check-out-the-source-code">Check out the source code&lt;/h2>
+&lt;p>&lt;a href="https://github.com/cardinalby/memrise-audio-uploader" target="_blank">https://github.com/cardinalby/memrise-audio-uploader&lt;/a>&lt;/p>
+&lt;h2 id="install-from-the-stores">Install from the stores&lt;/h2>
+&lt;p>&lt;a href="https://chrome.google.com/webstore/detail/memrise-audio-uploader/fonhjbpoimjmgfgbboichngpjlmilbmk" target="_blank">Chrome Web Store&lt;/a>&lt;/p>
+&lt;p>&lt;a href="https://addons.mozilla.org/firefox/addon/memrise-audio-uploader/" target="_blank">Firefox Add-ons&lt;/a>&lt;/p>
+&lt;p>To download the offline versions please go to the
+&lt;a href="https://github.com/cardinalby/memrise-audio-uploader/releases" target="_blank">Releases page&lt;/a>.&lt;/p>
+&lt;h2 id="screenshots">Screenshots&lt;/h2>
+&lt;p>&lt;img src="https://raw.githubusercontent.com/cardinalby/memrise-audio-uploader/master/design/screenshots/screenshot1.png" alt="Screenshot 1" />
+&lt;img src="https://raw.githubusercontent.com/cardinalby/memrise-audio-uploader/master/design/screenshots/screenshot2.png" alt="Screenshot 2" />
+&lt;img src="https://raw.githubusercontent.com/cardinalby/memrise-audio-uploader/master/design/screenshots/screenshot3.png" alt="Screenshot 3" />&lt;/p></description></item></channel></rss>

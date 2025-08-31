@@ -1,14 +1,230 @@
-<!doctype html><html prefix="og: http://ogp.me/ns#"><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><title>The main workflow &#183; cardinalby</title>
-<meta name=description content="We have prepared all the needed composite actions and workflows, and we are finally ready to create the main workflow that triggers the entire pipeline.
+<!doctype html><html prefix="og: http://ogp.me/ns#"><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge"><title>The main workflow &#183; </title><meta name=description content="We have prepared all the needed composite actions and workflows, and we are finally ready to create the main workflow that triggers the entire pipeline.
+
 .github/workflows/publish-release-on-tag.yml :
-name: Release and publish on tag on: push: tags: - '*.*.*' workflow_dispatch: jobs: build-release-publish: if: github.ref_type == 'tag' runs-on: ubuntu-latest steps: - uses: actions/checkout@v2 - uses: cardinalby/export-env-action@v1 with: envFile: './.github/workflows/constants.env' expand: true - name: Look for an existing release id: getRelease uses: cardinalby/git-get-release-action@v1 continue-on-error: true with: tag: ${{ github."><meta name=HandheldFriendly content="True"><meta name=MobileOptimized content="320"><meta name=generator content="Hugo 0.124.1"><meta name=robots content="index,follow"><meta name=viewport content="width=device-width,initial-scale=1"><meta property="og:title" content="The main workflow"><meta property="og:description" content="We have prepared all the needed composite actions and workflows, and we are finally ready to create the main workflow that triggers the entire pipeline.
+name: Release and publish on tag
+on:
+  push:
+    tags:
+      - '*.*.*'
+  workflow_dispatch:
+jobs:
+  build-release-publish:
+    if: github.ref_type == 'tag'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: cardinalby/export-env-action@v1
+        with:
+          envFile: './.github/workflows/constants.env'
+          expand: true
+
+      - name: Look for an existing release
+        id: getRelease
+        uses: cardinalby/git-get-release-action@v1
+        continue-on-error: true
+        with:
+          tag: ${{ github.ref_name }}
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+      - name: Build, test and pack to zip
+        id: buildPack
+        if: steps.getRelease.outcome != 'success'
+        uses: ./.github/workflows/actions/build-test-pack
+
+      - name: Create Release
+        id: createRelease
+        if: steps.getRelease.outcome != 'success'
+        uses: ncipollo/release-action@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          draft: 'true'
+
+      - name: Upload zip asset to the release
+        if: steps.getRelease.outcome != 'success'
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.createRelease.outputs.upload_url }}
+          asset_path: ${{ env.ZIP_FILE_PATH }}
+          asset_name: ${{ env.ZIP_FILE_NAME }}
+          asset_content_type: application/zip
+
+      # Should trigger build-assets-on-release.yml
+      - name: Publish release
+        if: steps.getRelease.outcome != 'success'
+        uses: eregon/publish-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.WORKFLOWS_TOKEN }}
+        with:
+          release_id: ${{ steps.createRelease.outputs.id }}
+
+      - name: Publish on Chrome Webstore
+        uses: benc-uk/workflow-dispatch@v1
+        if: &#34;!contains(github.event.head_commit.message, '[skip chrome]')&#34;
+        with:
+          workflow: publish-on-chrome-web-store
+          token: ${{ secrets.WORKFLOWS_TOKEN }}
+          wait-for-completion: false
+
+      - name: Publish on Firefox Add-ons
+        uses: benc-uk/workflow-dispatch@v1
+        if: &#34;!contains(github.event.head_commit.message, '[skip firefox]')&#34;
+        with:
+          workflow: publish-on-firefox-add-ons
+          token: ${{ secrets.WORKFLOWS_TOKEN }}
+          wait-for-completion: false
+
+      - name: Publish on Edge Add-ons
+        uses: benc-uk/workflow-dispatch@v1
+        if: &#34;!contains(github.event.head_commit.message, '[skip edge]')&#34;
+        with:
+           workflow: publish-on-edge-add-ons
+           token: ${{ secrets.WORKFLOWS_TOKEN }}
+           wait-for-completion: false
+
+The workflow can be triggered by pushing ..* tag or by workflow_dispatch event.
+To perform the work we need a tag to create a release for, that&rsquo;s why we add if: github.ref_type == 'tag' condition for the job to prevent running on branches.
+We use git-get-release-action to find a release for the tag. continue-on-error: true prevents the job from failing if release not found.
+If a release not found, we:
+
+Call build-test-pack composite action to build zip file.
+Call release-action to create a draft release. This doesn&rsquo;t trigger on: release event.
+Call upload-release-asset to upload zip asset to the release (to be used by publish-on-chrome-web-store and publish-on-firefox-add-ons workflows later).
+Call eregon/publish-release to publish the draft release. This triggers on: release event and build-assets-on-release workflow.
+
+
+We use benc-uk/workflow-dispatch action to asynchronously dispatch:
+
+publish-on-chrome-web-store workflow (if the commit message doesn&rsquo;t contain [skip chrome] text).
+publish-on-firefox-add-ons workflow (if the commit message doesn&rsquo;t contain [skip firefox] text).
+
+
+
+👏 Thank you for reading
+Finally, we are done! You can try out your first deployment by pushing a new ..* tag to the repo (don&rsquo;t forget to check the extension version in manifest.json)."><meta name=HandheldFriendly content="True"><meta name=MobileOptimized content="320"><meta name=generator content="Hugo 0.147.3"><meta name=robots content="index,follow"><meta name=viewport content="width=device-width,initial-scale=1"><meta property="og:title" content="The main workflow"><meta property="og:description" content="We have prepared all the needed composite actions and workflows, and we are finally ready to create the main workflow that triggers the entire pipeline.
+
 .github/workflows/publish-release-on-tag.yml :
-name: Release and publish on tag on: push: tags: - '*.*.*' workflow_dispatch: jobs: build-release-publish: if: github.ref_type == 'tag' runs-on: ubuntu-latest steps: - uses: actions/checkout@v2 - uses: cardinalby/export-env-action@v1 with: envFile: './.github/workflows/constants.env' expand: true - name: Look for an existing release id: getRelease uses: cardinalby/git-get-release-action@v1 continue-on-error: true with: tag: ${{ github."><meta property="og:type" content="article"><meta property="og:url" content="https://cardinalby.github.io/blog/post/github-actions/webext/9-the-main-workflow/"><link rel=stylesheet href=https://cardinalby.github.io/blog/dist/site.css><link rel=stylesheet href=https://cardinalby.github.io/blog/dist/syntax.css><link rel=stylesheet href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,600,700,300&subset=latin,cyrillic-ext,latin-ext,cyrillic"><link rel=stylesheet href=https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css integrity=sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN crossorigin=anonymous><base href=https://cardinalby.github.io/blog/><link rel="shortcut icon" type=image/jpg href=favicon.png><link rel=stylesheet href=css/custom.css></head><body><script async src="https://www.googletagmanager.com/gtag/js?id=G-S1HYRNQV86"></script><script>var dnt=navigator.doNotTrack||window.doNotTrack||navigator.msDoNotTrack,doNotTrack=dnt=="1"||dnt=="yes";if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-S1HYRNQV86",{anonymize_ip:!0})}</script><div id=wrapper><header class=site-header><div class=container><div class=site-title-wrapper><h1 class=site-title><a href=https://cardinalby.github.io/blog/>Tech grumbling</a></h1><a class=button-square href=https://cardinalby.github.io/blog/index.xml aria-label=RSS><i class="fa fa-rss" aria-hidden=true></i></a>
+name: Release and publish on tag
+on:
+  push:
+    tags:
+      - '*.*.*'
+  workflow_dispatch:
+jobs:
+  build-release-publish:
+    if: github.ref_type == 'tag'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: cardinalby/export-env-action@v1
+        with:
+          envFile: './.github/workflows/constants.env'
+          expand: true
+
+      - name: Look for an existing release
+        id: getRelease
+        uses: cardinalby/git-get-release-action@v1
+        continue-on-error: true
+        with:
+          tag: ${{ github.ref_name }}
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+
+      - name: Build, test and pack to zip
+        id: buildPack
+        if: steps.getRelease.outcome != 'success'
+        uses: ./.github/workflows/actions/build-test-pack
+
+      - name: Create Release
+        id: createRelease
+        if: steps.getRelease.outcome != 'success'
+        uses: ncipollo/release-action@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          draft: 'true'
+
+      - name: Upload zip asset to the release
+        if: steps.getRelease.outcome != 'success'
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.createRelease.outputs.upload_url }}
+          asset_path: ${{ env.ZIP_FILE_PATH }}
+          asset_name: ${{ env.ZIP_FILE_NAME }}
+          asset_content_type: application/zip
+
+      # Should trigger build-assets-on-release.yml
+      - name: Publish release
+        if: steps.getRelease.outcome != 'success'
+        uses: eregon/publish-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.WORKFLOWS_TOKEN }}
+        with:
+          release_id: ${{ steps.createRelease.outputs.id }}
+
+      - name: Publish on Chrome Webstore
+        uses: benc-uk/workflow-dispatch@v1
+        if: &#34;!contains(github.event.head_commit.message, '[skip chrome]')&#34;
+        with:
+          workflow: publish-on-chrome-web-store
+          token: ${{ secrets.WORKFLOWS_TOKEN }}
+          wait-for-completion: false
+
+      - name: Publish on Firefox Add-ons
+        uses: benc-uk/workflow-dispatch@v1
+        if: &#34;!contains(github.event.head_commit.message, '[skip firefox]')&#34;
+        with:
+          workflow: publish-on-firefox-add-ons
+          token: ${{ secrets.WORKFLOWS_TOKEN }}
+          wait-for-completion: false
+
+      - name: Publish on Edge Add-ons
+        uses: benc-uk/workflow-dispatch@v1
+        if: &#34;!contains(github.event.head_commit.message, '[skip edge]')&#34;
+        with:
+           workflow: publish-on-edge-add-ons
+           token: ${{ secrets.WORKFLOWS_TOKEN }}
+           wait-for-completion: false
+
+The workflow can be triggered by pushing ..* tag or by workflow_dispatch event.
+To perform the work we need a tag to create a release for, that&rsquo;s why we add if: github.ref_type == 'tag' condition for the job to prevent running on branches.
+We use git-get-release-action to find a release for the tag. continue-on-error: true prevents the job from failing if release not found.
+If a release not found, we:
+
+Call build-test-pack composite action to build zip file.
+Call release-action to create a draft release. This doesn&rsquo;t trigger on: release event.
+Call upload-release-asset to upload zip asset to the release (to be used by publish-on-chrome-web-store and publish-on-firefox-add-ons workflows later).
+Call eregon/publish-release to publish the draft release. This triggers on: release event and build-assets-on-release workflow.
+
+
+We use benc-uk/workflow-dispatch action to asynchronously dispatch:
+
+publish-on-chrome-web-store workflow (if the commit message doesn&rsquo;t contain [skip chrome] text).
+publish-on-firefox-add-ons workflow (if the commit message doesn&rsquo;t contain [skip firefox] text).
+
+
+
+👏 Thank you for reading
+Finally, we are done! You can try out your first deployment by pushing a new ..* tag to the repo (don&rsquo;t forget to check the extension version in manifest.json)."><meta property="og:type" content="article"><meta property="og:url" content="https://cardinalby.github.io/blog/post/github-actions/webext/9-the-main-workflow/"><link rel=stylesheet href=https://cardinalby.github.io/blog/dist/site.css><link rel=stylesheet href=https://cardinalby.github.io/blog/dist/syntax.css><link rel=stylesheet href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,600,700,300&subset=latin,cyrillic-ext,latin-ext,cyrillic"><link rel=stylesheet href=https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css integrity=sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN crossorigin=anonymous><base href=https://cardinalby.github.io/blog/><link rel="shortcut icon" type=image/jpg href=favicon.png><link rel=stylesheet href=css/custom.css></head><body><script async src="https://www.googletagmanager.com/gtag/js?id=G-S1HYRNQV86"></script><script>var dnt,doNotTrack=!1;if(!0&&(dnt=navigator.doNotTrack||window.doNotTrack||navigator.msDoNotTrack,doNotTrack=dnt=="1"||dnt=="yes"),!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-S1HYRNQV86")}</script><div id=wrapper><header class=site-header><div class=container><div class=site-title-wrapper><h1 class=site-title><a href=https://cardinalby.github.io/blog/>Tech grumbling</a></h1><a class=button-square href=https://cardinalby.github.io/blog/index.xml aria-label=RSS><i class="fa fa-rss" aria-hidden=true></i></a>
 <a class="button-square button-social hint--top" data-hint=Github aria-label=Github href=https://github.com/cardinalby rel=me><i class="fa fa-github-alt" aria-hidden=true></i>
 </a><a class="button-square button-social hint--top" data-hint="Stack Overflow" aria-label="Stack Overflow" href=https://stackoverflow.com/users/1180397/cardinal rel=me><i class="fa fa-stack-overflow" aria-hidden=true></i>
 </a><a class="button-square button-social hint--top" data-hint=LinkedIn aria-label=LinkedIn href=https://www.linkedin.com/in/sergey-borodin/ rel=me><i class="fa fa-linkedin" aria-hidden=true></i></a></div><ul class=site-nav><li class=site-nav-item><a href=/blog/>Blog</a></li><li class=site-nav-item><a href=/blog/project/>Projects</a></li><li class=site-nav-item><a href=/blog/tags/>Tags</a></li><li class=site-nav-item><a href=/blog/page/about/>About</a></li></ul></div></header><div id=container><div class=container><article class=post-container itemscope itemtype=http://schema.org/BlogPosting><header class=post-header><h1 class=post-title itemprop="name headline">The main workflow</h1><p class=post-date><span>Published <time datetime=2022-02-12 itemprop=datePublished>Feb 12, 2022</time></span>
 <span>by</span>
-<span itemscope itemprop=author itemtype=https://schema.org/Person><span itemprop=name><a href=https://github.com/cardinalby itemprop=url rel=author>cardinalby</a></span></span></p><p class="post-reading post-line"><span>Estimated reading time: 3 min</span></p></header><div class="post-content clearfix" itemprop=articleBody><img class=post-featured-image src=images/posts/github-actions/webext/title.png><div class=series-parts-block><div class=series-parts-title><div class=series-label>SERIES</div><div class=series-name><a href=/blog/series/releasing-webextension-using-github-actions>Releasing WebExtension using GitHub Actions</a></div></div></div><h3 class=series-part-block-print-only>Post <b>0</b> of <b>0</b> in "Releasing WebExtension using GitHub Actions" series</h3><p>We have prepared all the needed composite actions and workflows, and we are finally ready to create the main workflow that triggers the entire pipeline.</p><p><img src=images/posts/github-actions/webext/the-main-workflow.png alt="The main workflow"></p><p><em>.github/workflows/publish-release-on-tag.yml</em> :</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>Release and publish on tag</span><span class=w>
+<span itemscope itemprop=author itemtype=https://schema.org/Person><span itemprop=name><a href=# itemprop=url rel=author></a></span></span></p><p class="post-reading post-line"><span>Estimated reading time: 3 min</span></p></header><div class="post-content clearfix" itemprop=articleBody><img class=post-featured-image src=images/posts/github-actions/webext/title.png><div class=series-parts-block><div class=series-parts-title><div class=series-label>SERIES</div><div class=series-name><a href=/blog/series/releasing-webextension-using-github-actions>Releasing WebExtension using GitHub Actions</a></div></div><div class=series-part><span class=circled-number>1</span>
+<a href=https://cardinalby.github.io/blog/post/github-actions/webext/1-introduction/>Introduction. Constants</a></div><div class=series-part><span class=circled-number>2</span>
+<a href=https://cardinalby.github.io/blog/post/github-actions/webext/2-workflows-diagram/>Workflows diagram</a></div><div class=series-part><span class=circled-number>3</span>
+<a href=https://cardinalby.github.io/blog/post/github-actions/webext/3-composite-actions/>Composite actions</a></div><div class=series-part><span class=circled-number>4</span>
+<a href=https://cardinalby.github.io/blog/post/github-actions/webext/4-build-release-assets/>Build release assets</a></div><div class=series-part><span class=circled-number>5</span>
+<a href=https://cardinalby.github.io/blog/post/github-actions/webext/5-publish-on-edge-addons/>Publish on Edge Add-ons</a></div><div class=series-part><span class=circled-number>6</span>
+<a href=https://cardinalby.github.io/blog/post/github-actions/webext/6-publish-on-firefox-addons/>Publish on Firefox Add-ons</a></div><div class=series-part><span class=circled-number>7</span>
+<a href=https://cardinalby.github.io/blog/post/github-actions/webext/7-publish-on-chrome-web-store/>Publish on Chrome Web Store</a></div><div class=series-part><span class=circled-number>8</span>
+<a href=https://cardinalby.github.io/blog/post/github-actions/webext/8-google-api-refresh-token-expiration/>Don't let Google refresh token expire</a></div><div class="series-part current"><span class=circled-number>9</span>
+<a href=https://cardinalby.github.io/blog/post/github-actions/webext/9-the-main-workflow/>The main workflow</a></div></div><h3 class=series-part-block-print-only>Post <b>9</b> of <b>9</b> in "Releasing WebExtension using GitHub Actions" series</h3><p>We have prepared all the needed composite actions and workflows, and we are finally ready to create the main workflow that triggers the entire pipeline.</p><p><img src=images/posts/github-actions/webext/the-main-workflow.png alt="The main workflow"></p><p><em>.github/workflows/publish-release-on-tag.yml</em> :</p><div class=highlight><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>Release and publish on tag</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>on</span><span class=p>:</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>push</span><span class=p>:</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>tags</span><span class=p>:</span><span class=w>
@@ -92,7 +308,16 @@ name: Release and publish on tag on: push: tags: - '*.*.*' workflow_dispatch: jo
 </span></span></span><span class=line><span class=cl><span class=w>           </span><span class=nt>token</span><span class=p>:</span><span class=w> </span><span class=l>${{ secrets.WORKFLOWS_TOKEN }}</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>           </span><span class=nt>wait-for-completion</span><span class=p>:</span><span class=w> </span><span class=kc>false</span><span class=w>
 </span></span></span></code></pre></div><ol><li>The workflow can be triggered by pushing <em><em>.</em>.*</em> tag or by <em>workflow_dispatch</em> event.</li><li>To perform the work we need a tag to create a release for, that&rsquo;s why we add <code>if: github.ref_type == 'tag'</code> condition for the job to prevent running on branches.</li><li>We use <a href=https://github.com/cardinalby/git-get-release-action target=_blank>git-get-release-action</a> to find a release for the tag. <code>continue-on-error: true</code> prevents the job from failing if release not found.</li><li>If a release not found, we:<ul><li>Call <em><strong>build-test-pack</strong></em> composite action to build <strong>zip</strong> file.</li><li>Call <a href=https://github.com/ncipollo/release-action target=_blank>release-action</a> to create a draft release. This doesn&rsquo;t trigger <code>on: release</code> event.</li><li>Call <a href=https://github.com/actions/upload-release-asset target=_blank>upload-release-asset</a> to upload <strong>zip</strong> asset to the release (to be used by <em><strong>publish-on-chrome-web-store</strong></em> and <em><strong>publish-on-firefox-add-ons</strong></em> workflows later).</li><li>Call <a href=https://github.com/eregon/publish-release target=_blank>eregon/publish-release</a> to publish the draft release. This triggers <code>on: release</code> event and <a href=/blog/post/github-actions/webext/4-build-release-assets/>build-assets-on-release</a> workflow.</li></ul></li><li>We use <a href=https://github.com/benc-uk/workflow-dispatch target=_blank>benc-uk/workflow-dispatch</a> action to asynchronously dispatch:<ul><li><a href=/blog/post/github-actions/webext/7-publish-on-chrome-web-store/>publish-on-chrome-web-store</a> workflow (if the commit message doesn&rsquo;t contain <code>[skip chrome]</code> text).</li><li><a href=./5-publish-on-firefox-add-ons.md>publish-on-firefox-add-ons</a> workflow (if the commit message doesn&rsquo;t contain <code>[skip firefox]</code> text).</li></ul></li></ol><h2 id=-thank-you-for-reading>👏 Thank you for reading</h2><p>Finally, we are done! You can try out your first deployment by pushing a new <em><em>.</em>.*</em> tag to the repo (don&rsquo;t forget to check the extension version in <em>manifest.json</em>).</p><p>Any comments, critics and sharing your own experience would be appreciated.
-You can find a real example of the described CI/CD approach in my <a href=https://github.com/cardinalby/memrise-audio-uploader target=_blank>Memrise Audio Uploader</a> extension.</p><div class=series-parts-block><div class=series-parts-title><div class=series-label>SERIES</div><div class=series-name><a href=/blog/series/releasing-webextension-using-github-actions>Releasing WebExtension using GitHub Actions</a></div></div></div><h3 class=series-part-block-print-only>Post <b>0</b> of <b>0</b> in "Releasing WebExtension using GitHub Actions" series</h3></div><footer class="post-footer clearfix"><p class=post-tags><span>Tagged:</span>
+You can find a real example of the described CI/CD approach in my <a href=https://github.com/cardinalby/memrise-audio-uploader target=_blank>Memrise Audio Uploader</a> extension.</p><div class=series-parts-block><div class=series-parts-title><div class=series-label>SERIES</div><div class=series-name><a href=/blog/series/releasing-webextension-using-github-actions>Releasing WebExtension using GitHub Actions</a></div></div><div class=series-part><span class=circled-number>1</span>
+<a href=https://cardinalby.github.io/blog/post/github-actions/webext/1-introduction/>Introduction. Constants</a></div><div class=series-part><span class=circled-number>2</span>
+<a href=https://cardinalby.github.io/blog/post/github-actions/webext/2-workflows-diagram/>Workflows diagram</a></div><div class=series-part><span class=circled-number>3</span>
+<a href=https://cardinalby.github.io/blog/post/github-actions/webext/3-composite-actions/>Composite actions</a></div><div class=series-part><span class=circled-number>4</span>
+<a href=https://cardinalby.github.io/blog/post/github-actions/webext/4-build-release-assets/>Build release assets</a></div><div class=series-part><span class=circled-number>5</span>
+<a href=https://cardinalby.github.io/blog/post/github-actions/webext/5-publish-on-edge-addons/>Publish on Edge Add-ons</a></div><div class=series-part><span class=circled-number>6</span>
+<a href=https://cardinalby.github.io/blog/post/github-actions/webext/6-publish-on-firefox-addons/>Publish on Firefox Add-ons</a></div><div class=series-part><span class=circled-number>7</span>
+<a href=https://cardinalby.github.io/blog/post/github-actions/webext/7-publish-on-chrome-web-store/>Publish on Chrome Web Store</a></div><div class=series-part><span class=circled-number>8</span>
+<a href=https://cardinalby.github.io/blog/post/github-actions/webext/8-google-api-refresh-token-expiration/>Don't let Google refresh token expire</a></div><div class="series-part current"><span class=circled-number>9</span>
+<a href=https://cardinalby.github.io/blog/post/github-actions/webext/9-the-main-workflow/>The main workflow</a></div></div><h3 class=series-part-block-print-only>Post <b>9</b> of <b>9</b> in "Releasing WebExtension using GitHub Actions" series</h3></div><footer class="post-footer clearfix"><p class=post-tags><span>Tagged:</span>
 <a href=/tags/github-actions/>github-actions</a>,
 <a href=/tags/devops/>devops</a>,
 <a href=/tags/web-extension/>web-extension</a></p><div class=share></div></footer><div class=comments><div id=disqus_thread></div><script>window.disqus_config=function(){},function(){if(["localhost","127.0.0.1"].indexOf(window.location.hostname)!=-1){document.getElementById("disqus_thread").innerHTML="Disqus comments not available by default when the website is previewed locally.";return}var t=document,e=t.createElement("script");e.async=!0,e.src="//https-cardinalby-github-io-blog.disqus.com/embed.js",e.setAttribute("data-timestamp",+new Date),(t.head||t.body).appendChild(e)}()</script><noscript>Please enable JavaScript to view the <a href=https://disqus.com/?ref_noscript>comments powered by Disqus.</a></noscript><a href=https://disqus.com class=dsq-brlink>comments powered by <span class=logo-disqus>Disqus</span></a></div></article></div></div></div><footer class=footer><div class=container><div class=site-title-wrapper><h1 class=site-title><a href=https://cardinalby.github.io/blog/>Tech grumbling</a></h1><a class="button-square button-jump-top js-jump-top" href=# aria-label="Back to Top"><i class="fa fa-angle-up" aria-hidden=true></i></a></div><p class=footer-copyright><span>&copy; 2024 / Powered by <a href=https://gohugo.io/>Hugo</a></span></p></div></footer><script src=https://cardinalby.github.io/blog/js/jquery-1.11.3.min.js></script><script src=https://cardinalby.github.io/blog/js/jquery.fitvids.js></script><script src=https://cardinalby.github.io/blog/js/scripts.js></script><script src=js/copy-code-to-clipboard.js></script><script src=js/add-header-anchors.js></script></body></html>
